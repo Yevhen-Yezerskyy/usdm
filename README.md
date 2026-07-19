@@ -13,12 +13,41 @@ The Django project lives in `usdm/`; that directory contains `manage.py`, the
 - `nginx` is the only service exposed on ports 80 and 443.
 - `certbot` owns ACME certificates and renewal.
 
+## Git repository
+
+- GitHub repository: `https://github.com/Yevhen-Yezerskyy/usdm`
+- Host checkout remote: `git@github.com:Yevhen-Yezerskyy/usdm.git`
+- Default and production branch: `main`
+- The host uses the dedicated deploy key at
+  `/home/eee/.ssh/id_ed25519_git_usdm`; its public half is registered in
+  GitHub with write access.
+- The SSH host entry in `/home/eee/.ssh/config` selects that key for
+  `github.com`.
+- Never commit `.env`, credentials, database dumps, uploaded media, logs, or
+  collected static files.
+
 ## Production release
 
-Commit the intended code first, then copy the checkout into the production volume:
+Production code must reach the internal `usdm-prod-code` volume through Git
+only. Never copy the host checkout into the volume. If the volume is empty,
+initialize it from the public, read-only HTTPS remote:
 
 ```bash
-docker compose run --rm tools sh -lc 'find /app -mindepth 1 -maxdepth 1 -exec rm -rf -- {} + && cp -a /app-dev/. /app/'
+docker compose run --rm tools sh -lc \
+  'git clone --branch main --single-branch https://github.com/Yevhen-Yezerskyy/usdm.git /app'
+```
+
+For subsequent releases, push the reviewed commit to `origin/main`, update the
+volume with a fast-forward-only pull, and run the Django release steps:
+
+```bash
+git push origin main
+docker compose run --rm tools sh -lc '
+  git config --global --add safe.directory /app
+  git -C /app remote get-url origin >/dev/null 2>&1 ||
+    git -C /app remote add origin https://github.com/Yevhen-Yezerskyy/usdm.git
+  git -C /app pull --ff-only origin main
+'
 docker compose run --rm usdm-prod python manage.py migrate
 docker compose run --rm usdm-prod python manage.py collectstatic --noinput
 docker compose up -d usdm-prod
