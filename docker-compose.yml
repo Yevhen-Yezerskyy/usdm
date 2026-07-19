@@ -1,0 +1,106 @@
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: usdm-nginx
+    restart: unless-stopped
+    depends_on:
+      - usdm-dev
+      - usdm-prod
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./config/nginx/includes:/etc/nginx/includes:ro
+      - ./logs/nginx:/var/log/nginx
+      - usdm-files:/srv/files
+      - certbot-www:/var/www/certbot:ro
+      - certbot-etc:/etc/letsencrypt:ro
+
+  certbot:
+    image: certbot/certbot:latest
+    container_name: usdm-certbot
+    restart: unless-stopped
+    volumes:
+      - certbot-www:/var/www/certbot
+      - certbot-etc:/etc/letsencrypt
+      - ./logs/certbot:/var/log/letsencrypt
+    entrypoint: /bin/sh
+    command: -c 'trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet; sleep 12h & wait $${!}; done'
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: usdm-postgres
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  tools:
+    build:
+      context: .
+      dockerfile: config/docker/Dockerfile.django
+    image: usdm-django:latest
+    profiles: ["tools"]
+    working_dir: /app
+    volumes:
+      - usdm-prod-code:/app
+      - ./:/app-dev
+      - usdm-files:/srv/files
+    command: sleep infinity
+
+  usdm-prod:
+    image: usdm-django:latest
+    container_name: usdm-prod
+    restart: unless-stopped
+    working_dir: /app/site
+    env_file: .env
+    environment:
+      DEBUG: "0"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - usdm-prod-code:/app
+      - usdm-files:/srv/files
+      - ./logs:/srv/logs
+      - ./config/scripts/run-with-logs.sh:/usr/local/bin/run-with-logs:ro
+    ports:
+      - "127.0.0.1:18101:8000"
+    command: ["/usr/local/bin/run-with-logs", "/srv/logs/processes.log", "/srv/logs/sites/usdm/prod.log", "gunicorn", "usdm_site.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "60"]
+
+  usdm-dev:
+    image: usdm-django:latest
+    container_name: usdm-dev
+    restart: unless-stopped
+    working_dir: /app/site
+    env_file: .env
+    environment:
+      DEBUG: "1"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./:/app
+      - ./dev-media:/srv/dev-media
+      - ./logs:/srv/logs
+      - ./config/scripts/run-with-logs.sh:/usr/local/bin/run-with-logs:ro
+    ports:
+      - "127.0.0.1:18100:8000"
+    command: ["/usr/local/bin/run-with-logs", "/srv/logs/processes.log", "/srv/logs/sites/usdm/dev.log", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+volumes:
+  postgres-data:
+  certbot-www:
+  certbot-etc:
+  usdm-prod-code:
+  usdm-files:
+

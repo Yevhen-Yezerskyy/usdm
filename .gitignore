@@ -1,0 +1,8 @@
+.env
+logs/
+dev-media/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+static_collected/
+
