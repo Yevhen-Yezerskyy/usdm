@@ -10,4 +10,3 @@ def health(request):
         cursor.execute("SELECT 1")
         cursor.fetchone()
     return JsonResponse({"status": "ok", "database": "ok"})
-

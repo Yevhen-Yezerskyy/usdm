@@ -62,7 +62,7 @@ services:
     image: usdm-django:latest
     container_name: usdm-prod
     restart: unless-stopped
-    working_dir: /app/site
+    working_dir: /app/usdm
     env_file: .env
     environment:
       DEBUG: "0"
@@ -82,7 +82,7 @@ services:
     image: usdm-django:latest
     container_name: usdm-dev
     restart: unless-stopped
-    working_dir: /app/site
+    working_dir: /app/usdm
     env_file: .env
     environment:
       DEBUG: "1"

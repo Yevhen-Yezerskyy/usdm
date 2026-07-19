@@ -2,6 +2,9 @@
 
 Single-site Django stack for `dev.usdm.com.ua` and, later, `usdm.com.ua`.
 
+The Django project lives in `usdm/`; that directory contains `manage.py`, the
+`usdm_site` Python package, templates, and static assets.
+
 ## Runtime model
 
 - `usdm-dev` mounts this host checkout at `/app` and runs Django `runserver`.
