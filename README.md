@@ -1,6 +1,6 @@
 # USDM
 
-Single-site Django stack for `dev.usdm.ua` and, later, `usdm.com.ua`.
+Single-site Django stack for `dev.usdm.com.ua` and, later, `usdm.com.ua`.
 
 ## Runtime model
 
@@ -22,4 +22,3 @@ docker compose up -d usdm-prod
 ```
 
 Do not issue the `usdm.com.ua` certificate until its DNS points to this server.
-

@@ -4,8 +4,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 DEBUG = os.environ.get("DEBUG", "0") == "1"
-ALLOWED_HOSTS = ["dev.usdm.ua", "usdm.com.ua", "www.usdm.com.ua", "localhost", "127.0.0.1"]
-CSRF_TRUSTED_ORIGINS = ["https://dev.usdm.ua", "https://usdm.com.ua"]
+ALLOWED_HOSTS = ["dev.usdm.com.ua", "usdm.com.ua", "www.usdm.com.ua", "localhost", "127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://dev.usdm.com.ua", "https://usdm.com.ua"]
 
 INSTALLED_APPS = ["django.contrib.staticfiles"]
 MIDDLEWARE = [
@@ -43,4 +43,3 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = "/srv/files/usdm/media" if not DEBUG else "/srv/dev-media/usdm"
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-
