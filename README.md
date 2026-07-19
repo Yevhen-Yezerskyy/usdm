@@ -40,6 +40,15 @@ The Django project lives in `usdm/`; that directory contains `manage.py`, the
 - Never commit `.env`, credentials, database dumps, uploaded media, logs, or
   collected static files.
 
+## Runtime secrets
+
+Runtime credentials live in the ignored host file `config/secrets.env`, which
+must have mode `0600`. Compose injects it into PostgreSQL and both Django
+services with `env_file`; the file is not mounted into the containers. Django
+settings read the values from environment variables. It currently contains
+the PostgreSQL database name, user and password, plus the required Django
+secret key. Never put plaintext secret values in tracked code or Compose.
+
 ## Production release
 
 Production code must reach the internal `usdm-prod-code` volume through Git
