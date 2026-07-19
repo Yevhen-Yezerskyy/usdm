@@ -1,9 +1,5 @@
 from django.db import connection
 from django.http import JsonResponse
-from django.shortcuts import render
-
-def index(request):
-    return render(request, "index.html")
 
 def health(request):
     with connection.cursor() as cursor:

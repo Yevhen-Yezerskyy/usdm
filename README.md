@@ -13,6 +13,20 @@ The Django project lives in `usdm/`; that directory contains `manage.py`, the
 - `nginx` is the only service exposed on ports 80 and 443.
 - `certbot` owns ACME certificates and renewal.
 
+## Languages and translations
+
+- Ukrainian (`uk`) is the source and default language; German (`de`) is also
+  supported.
+- Public pages always use a language prefix: `/uk/...` or `/de/...`.
+- A visit to `/` selects the language in this order: `usdm_language` cookie,
+  `Accept-Language` header, then Ukrainian fallback.
+- Visiting a prefixed URL activates that language and refreshes the cookie.
+- UI strings use Django `{% translate %}` and are resolved at runtime from the
+  `translation_sources` and `translation_values` database tables. Missing
+  translations safely fall back to the Ukrainian source text.
+- The language switcher preserves the current page while replacing its URL
+  prefix.
+
 ## Git repository
 
 - GitHub repository: `https://github.com/Yevhen-Yezerskyy/usdm`
