@@ -27,20 +27,20 @@
         <details class="mobile-navigation">
           <summary aria-label="{% translate 'Меню' %}"><span></span><span></span><span></span></summary>
           <nav aria-label="{% translate 'Основна навігація' %}">
-            <a href="/{{ current_language }}/">{% translate "Головна" %}</a>
-            <a href="/{{ current_language }}/technology/">{% translate "Технологія" %}</a>
+            <a href="/{{ current_language }}/">{% translate "Home" %}</a>
+            <a href="/{{ current_language }}/technology/">{% translate "Технології" %}</a>
             <a href="/{{ current_language }}/houses/">{% translate "Будинки" %}</a>
             <a href="/{{ current_language }}/experience/">{% translate "Досвід" %}</a>
-            <a href="/{{ current_language }}/contact/">{% translate "Контакти" %}</a>
+            <a href="/{{ current_language }}/contact/">{% translate "Контакт" %}</a>
           </nav>
         </details>
 
         <nav class="primary-navigation" aria-label="{% translate 'Основна навігація' %}">
-          <a class="{% if page_name == 'home' %}is-active{% endif %}" href="/{{ current_language }}/">{% translate "Головна" %}</a>
-          <a class="{% if page_name == 'technology' %}is-active{% endif %}" href="/{{ current_language }}/technology/">{% translate "Технологія" %}</a>
+          <a class="{% if page_name == 'home' %}is-active{% endif %}" href="/{{ current_language }}/">{% translate "Home" %}</a>
+          <a class="{% if page_name == 'technology' %}is-active{% endif %}" href="/{{ current_language }}/technology/">{% translate "Технології" %}</a>
           <a class="{% if page_name == 'houses' %}is-active{% endif %}" href="/{{ current_language }}/houses/">{% translate "Будинки" %}</a>
           <a class="{% if page_name == 'experience' %}is-active{% endif %}" href="/{{ current_language }}/experience/">{% translate "Досвід" %}</a>
-          <a class="{% if page_name == 'contact' %}is-active{% endif %}" href="/{{ current_language }}/contact/">{% translate "Контакти" %}</a>
+          <a class="{% if page_name == 'contact' %}is-active{% endif %}" href="/{{ current_language }}/contact/">{% translate "Контакт" %}</a>
         </nav>
       </div>
 

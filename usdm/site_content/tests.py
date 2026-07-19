@@ -31,5 +31,11 @@ class LanguageRoutingTests(TestCase):
         response = self.client.get("/uk/houses/")
         self.assertContains(response, 'href="/de/houses/"')
 
+    def test_ukrainian_navigation_matches_source_site(self):
+        response = self.client.get("/uk/")
+        self.assertContains(response, ">Home</a>")
+        self.assertContains(response, ">Технології</a>")
+        self.assertContains(response, ">Контакт</a>")
+
     def test_unknown_language_is_not_a_page(self):
         self.assertEqual(self.client.get("/fr/").status_code, 404)
