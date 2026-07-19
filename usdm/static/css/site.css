@@ -8,6 +8,22 @@
 }
 
 @font-face {
+  font-family: "USDM Icons";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("../fonts/awb-icons.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url("../fonts/fa-solid-900.woff2") format("woff2");
+}
+
+@font-face {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
@@ -41,27 +57,35 @@ a {
 }
 
 .site-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 10;
-  height: 111px;
+  display: flex;
+  justify-content: center;
+  height: 120.328px;
+  padding: 5px 30px 10px;
   background: #fff;
-  border-bottom: 1px solid #1d1d1d;
-  box-shadow: 0 2px 3px rgb(0 0 0 / 18%);
+  background-image: url("../img/header-line.png");
+  background-position: center bottom;
+  background-repeat: repeat-x;
 }
 
 .site-header__inner {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: min(var(--usdm-content), calc(100% - 40px));
+  justify-content: flex-end;
+  width: min(1212px, 100%);
   height: 100%;
   margin: 0 auto;
 }
 
 .site-header__logo {
   display: block;
+  flex: 0 0 250px;
   width: 250px;
+  margin-left: 6px;
+  margin-right: auto;
   line-height: 0;
 }
 
@@ -72,17 +96,21 @@ a {
 }
 
 .site-header__right {
+  position: relative;
+  flex: 0 0 909px;
   align-self: stretch;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
+  width: 909px;
+  padding: 0 6px;
 }
 
 .language-switcher {
-  position: absolute;
-  top: 13px;
-  right: 0;
+  display: flex;
+  flex: 0 0 25px;
+  align-items: flex-start;
+  justify-content: flex-end;
+  height: 25px;
 }
 
 .language-switcher a {
@@ -97,19 +125,23 @@ a {
 
 .primary-navigation {
   display: flex;
-  height: 81px;
-  align-items: flex-end;
+  flex: 0 0 80px;
+  align-items: stretch;
+  justify-content: flex-end;
+  width: 100%;
+  height: 80px;
 }
 
 .primary-navigation a {
   display: flex;
   align-items: center;
-  height: 81px;
-  padding: 0 16px 3px;
+  height: 80px;
+  padding: 0 16px 7px;
   border-bottom: 3px solid transparent;
   color: var(--usdm-ink);
   font-size: 14px;
-  letter-spacing: .015em;
+  line-height: 16.8px;
+  letter-spacing: .21px;
   text-decoration: none;
   text-transform: uppercase;
   transition: color 160ms ease, border-color 160ms ease;
@@ -123,13 +155,13 @@ a {
 
 .header-contact {
   position: absolute;
-  top: 120px;
-  right: 0;
-  width: 264px;
-  min-height: 77px;
-  padding: 10px;
+  top: 115.312px;
+  right: 5.953px;
+  width: 264.094px;
+  height: 76.188px;
+  padding: 0 10px;
   border: 1px solid rgb(255 180 0 / 27%);
-  background: rgb(255 255 255 / 82%);
+  background: rgb(255 255 255 / 80%);
 }
 
 .header-contact a {
@@ -137,32 +169,58 @@ a {
 }
 
 .header-contact__phone {
-  display: block;
-  padding: 1px 0 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 41px;
+  padding: 12px 0 10px;
   font-size: 16px;
-  line-height: 22px;
+  line-height: 19.2px;
+  letter-spacing: .24px;
 }
 
-.header-contact__phone span {
-  display: inline-block;
-  width: 17px;
-  font-size: 17px;
+.header-contact__phone .icon--phone {
+  width: 16.25px;
+  margin-right: 11.2px;
+  font-family: "Font Awesome 5 Free";
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 16px;
+}
+
+.icon--phone::before {
+  content: "\f879";
 }
 
 .header-contact__socials {
   display: flex;
-  align-items: center;
-  gap: 15px;
+  align-items: flex-start;
+  height: 33px;
+  padding-top: 1px;
+  gap: 15.28px;
 }
 
 .header-contact__socials a {
-  display: grid;
-  width: 17px;
-  height: 20px;
-  place-items: center;
+  display: block;
+  width: auto;
+  height: 18px;
+  font-family: "USDM Icons";
   font-size: 18px;
-  font-weight: 600;
-  line-height: 1;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: .8px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.icon--facebook::before { content: "\e604"; }
+.icon--instagram::before { content: "\ea92"; }
+.icon--telegram::before { content: "\f1d8"; }
+.icon--whatsapp::before { content: "\f232"; }
+.icon--mail::before { content: "\e616"; }
+
+.icon::before {
+  display: block;
 }
 
 .header-contact a:hover {
@@ -185,6 +243,8 @@ main {
 @media (max-width: 760px) {
   .site-header {
     height: 82px;
+    padding: 0 15px;
+    background-image: none;
   }
 
   .site-header__inner {
