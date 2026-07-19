@@ -14,4 +14,6 @@ urlpatterns = [
     path("<str:lang>/contact/", page, {"page_name": "contact"}, name="contact"),
     path("<str:lang>/imprint/", page, {"page_name": "imprint"}, name="imprint"),
     path("<str:lang>/privacy/", page, {"page_name": "privacy"}, name="privacy"),
+    path("<str:lang>/impressum/", page, {"page_name": "impressum"}, name="impressum"),
+    path("<str:lang>/datenschutz/", page, {"page_name": "datenschutz"}, name="datenschutz"),
 ]

@@ -1,0 +1,68 @@
+{% load i18n %}
+{% load static %}
+
+<footer class="site-footer">
+  <section class="footer-main">
+    <div class="footer-main__inner">
+      <div class="footer-column footer-column--primary">
+        <img class="footer-logo" src="{% static 'img/usdm-footer-logo.gif' %}" width="400" height="100" alt="USDM">
+
+        <div class="footer-tagline">
+          <p>{% translate "КАРКАСНО-ПАНЕЛЬНІ БУДИНКИ" %}</p>
+        </div>
+
+        <ul class="footer-contact-list footer-contact-list--primary">
+          <li><span class="footer-contact-icon footer-contact-icon--phone" aria-hidden="true"></span><a href="tel:+380675435910">+380 67 543 59 10</a></li>
+          <li><span class="footer-contact-icon footer-contact-icon--mail" aria-hidden="true"></span><a href="mailto:sb@usdm.com.ua">sb@usdm.com.ua</a></li>
+        </ul>
+
+        <nav class="footer-socials" aria-label="Social media">
+          <a class="icon icon--facebook" href="https://www.facebook.com/usdm.ua" target="_blank" rel="noopener" aria-label="Facebook"></a>
+          <a class="icon icon--instagram" href="https://www.instagram.com/usdm.ua/" target="_blank" rel="noopener" aria-label="Instagram"></a>
+          <a class="icon icon--telegram" href="https://t.me/USDModular" target="_blank" rel="noopener" aria-label="Telegram"></a>
+          <a class="icon icon--whatsapp" href="https://wa.me/+380675435910" target="_blank" rel="noopener" aria-label="WhatsApp"></a>
+          <a class="icon icon--mail" href="mailto:sb@usdm.com.ua" aria-label="Email"></a>
+        </nav>
+      </div>
+
+      <div class="footer-column footer-column--representatives">
+        <ul class="footer-contact-list footer-contact-group">
+          <li class="footer-contact-group__title"><span class="footer-contact-icon footer-contact-icon--arrow" aria-hidden="true"></span><strong>{% translate "Представник у Німеччині" %}</strong></li>
+          <li><span class="footer-contact-icon footer-contact-icon--globe" aria-hidden="true"></span><span>Nowedel GmbH, Hamburg</span></li>
+          <li><span class="footer-contact-icon footer-contact-icon--phone" aria-hidden="true"></span><a href="tel:+4915127606097">+49 1512 7606097</a></li>
+          <li><span class="footer-contact-icon footer-contact-icon--mail" aria-hidden="true"></span><a href="mailto:haus@nowedel.de">haus@nowedel.de</a></li>
+        </ul>
+
+        <ul class="footer-contact-list footer-contact-group">
+          <li class="footer-contact-group__title"><span class="footer-contact-icon footer-contact-icon--arrow" aria-hidden="true"></span><strong>{% translate "Представник у Швеції" %}</strong></li>
+          <li><span class="footer-contact-icon footer-contact-icon--globe" aria-hidden="true"></span><span>Harmony Villa Sweden AB</span></li>
+          <li><span class="footer-contact-icon footer-contact-icon--phone" aria-hidden="true"></span><a href="tel:+46728388046">+46 72 838 80 46</a></li>
+          <li><span class="footer-contact-icon footer-contact-icon--mail" aria-hidden="true"></span><a href="mailto:alexander@harmonivilla.se">alexander@harmonivilla.se</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column footer-column--representatives">
+        <ul class="footer-contact-list footer-contact-group">
+          <li class="footer-contact-group__title"><span class="footer-contact-icon footer-contact-icon--arrow" aria-hidden="true"></span><strong>{% translate "Представник в Ісландії" %}</strong></li>
+          <li><span class="footer-contact-icon footer-contact-icon--globe" aria-hidden="true"></span><span>Gluggarerðin ehf.</span></li>
+          <li><span class="footer-contact-icon footer-contact-icon--phone" aria-hidden="true"></span><a href="tel:+355666630">+35 566 6630</a></li>
+          <li><span class="footer-contact-icon footer-contact-icon--mail" aria-hidden="true"></span><a href="mailto:gluggagerdin@gluggagerdin.is">gluggagerdin@gluggagerdin.is</a></li>
+        </ul>
+
+        <ul class="footer-contact-list footer-contact-group">
+          <li class="footer-contact-group__title"><span class="footer-contact-icon footer-contact-icon--arrow" aria-hidden="true"></span><strong>{% translate "Представник у Франції" %}</strong></li>
+          <li><span class="footer-contact-icon footer-contact-icon--globe" aria-hidden="true"></span><span>Modul’art Wood</span></li>
+          <li><span class="footer-contact-icon footer-contact-icon--phone" aria-hidden="true"></span><a href="tel:+330781416099">+33 0781 416 099</a></li>
+          <li><span class="footer-contact-icon footer-contact-icon--mail" aria-hidden="true"></span><a href="mailto:info@modul-art-wood.fr">info@modul-art-wood.fr</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="footer-legal">
+    <div class="footer-legal__inner">
+      <p><a href="/{{ current_language }}/impressum/">Impressum</a> / <a href="/{{ current_language }}/datenschutz/">Datenschutz</a></p>
+      <p>{% translate "© 2012 – 2025 ТОВ “ЮСДМ”" %}<br>{% translate "Модульні каркасно-панельні будинкі за модульною технологією, власне виробнитство дерев’яних будівельних конструкцій" %}</p>
+    </div>
+  </section>
+</footer>

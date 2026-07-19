@@ -31,11 +31,29 @@ class LanguageRoutingTests(TestCase):
         response = self.client.get("/uk/houses/")
         self.assertContains(response, 'href="/de/houses/"')
 
+        response = self.client.get("/de/houses/")
+        self.assertContains(response, 'href="/uk/houses/"')
+        self.assertContains(response, ">Українська</a>")
+
     def test_ukrainian_navigation_matches_source_site(self):
         response = self.client.get("/uk/")
         self.assertContains(response, ">Home</a>")
         self.assertContains(response, ">Технології</a>")
         self.assertContains(response, ">Контакт</a>")
+
+    def test_footer_contains_all_representatives(self):
+        response = self.client.get("/uk/")
+        self.assertContains(response, "Представник у Німеччині")
+        self.assertContains(response, "Представник у Швеції")
+        self.assertContains(response, "Представник в Ісландії")
+        self.assertContains(response, "Представник у Франції")
+        self.assertContains(response, 'href="/uk/impressum/"')
+
+    def test_footer_is_translated_to_german(self):
+        response = self.client.get("/de/")
+        self.assertContains(response, "HOLZRAHMEN-PANELHÄUSER")
+        self.assertContains(response, "Vertretung in Deutschland")
+        self.assertContains(response, "Modulare Holzrahmen-Panelhäuser")
 
     def test_unknown_language_is_not_a_page(self):
         self.assertEqual(self.client.get("/fr/").status_code, 404)

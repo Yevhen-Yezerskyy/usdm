@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}USDM{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/site.css' %}?v=20260719-2">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}?v=20260719-8">
 </head>
 <body>
   <header class="site-header">
@@ -59,9 +59,6 @@
 
   <main>{% block content %}{% endblock %}</main>
 
-  <footer class="site-footer">
-    <a href="/{{ current_language }}/imprint/">{% translate "Імпресум" %}</a>
-    <a href="/{{ current_language }}/privacy/">{% translate "Конфіденційність" %}</a>
-  </footer>
+  {% include "partials/footer.html" %}
 </body>
 </html>

@@ -5,7 +5,17 @@ from django.shortcuts import render
 from .language import preferred_language
 
 
-PAGE_NAMES = {"home", "technology", "houses", "experience", "contact", "imprint", "privacy"}
+PAGE_NAMES = {
+    "home",
+    "technology",
+    "houses",
+    "experience",
+    "contact",
+    "imprint",
+    "privacy",
+    "impressum",
+    "datenschutz",
+}
 
 
 def language_entry(request):
