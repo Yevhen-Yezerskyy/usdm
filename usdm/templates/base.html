@@ -1,31 +1,65 @@
 {% load i18n %}
+{% load static %}
 <!doctype html>
 <html lang="{{ current_language }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}USDM{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
 </head>
 <body>
-  <header>
-    <a href="/{{ current_language }}/">USDM</a>
-    <nav aria-label="{% translate 'Основна навігація' %}">
-      <a href="/{{ current_language }}/">{% translate "Головна" %}</a>
-      <a href="/{{ current_language }}/technology/">{% translate "Технологія" %}</a>
-      <a href="/{{ current_language }}/houses/">{% translate "Будинки" %}</a>
-      <a href="/{{ current_language }}/experience/">{% translate "Досвід" %}</a>
-      <a href="/{{ current_language }}/contact/">{% translate "Контакти" %}</a>
-    </nav>
-    <nav aria-label="Language switcher">
-      {% for language in site_languages %}
-        <a href="{{ language.url }}" hreflang="{{ language.code }}"{% if language.active %} aria-current="true"{% endif %}>{{ language.name }}</a>
-      {% endfor %}
-    </nav>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-header__logo" href="/{{ current_language }}/" aria-label="USDM">
+        <img src="{% static 'img/usdm-logo.jpg' %}" width="400" height="100" alt="USDM">
+      </a>
+
+      <div class="site-header__right">
+        <nav class="language-switcher" aria-label="Language switcher">
+          {% for language in site_languages %}
+            {% if not language.active %}
+              <a href="{{ language.url }}" hreflang="{{ language.code }}">{{ language.name }}</a>
+            {% endif %}
+          {% endfor %}
+        </nav>
+
+        <details class="mobile-navigation">
+          <summary aria-label="{% translate 'Меню' %}"><span></span><span></span><span></span></summary>
+          <nav aria-label="{% translate 'Основна навігація' %}">
+            <a href="/{{ current_language }}/">{% translate "Головна" %}</a>
+            <a href="/{{ current_language }}/technology/">{% translate "Технологія" %}</a>
+            <a href="/{{ current_language }}/houses/">{% translate "Будинки" %}</a>
+            <a href="/{{ current_language }}/experience/">{% translate "Досвід" %}</a>
+            <a href="/{{ current_language }}/contact/">{% translate "Контакти" %}</a>
+          </nav>
+        </details>
+
+        <nav class="primary-navigation" aria-label="{% translate 'Основна навігація' %}">
+          <a class="{% if page_name == 'home' %}is-active{% endif %}" href="/{{ current_language }}/">{% translate "Головна" %}</a>
+          <a class="{% if page_name == 'technology' %}is-active{% endif %}" href="/{{ current_language }}/technology/">{% translate "Технологія" %}</a>
+          <a class="{% if page_name == 'houses' %}is-active{% endif %}" href="/{{ current_language }}/houses/">{% translate "Будинки" %}</a>
+          <a class="{% if page_name == 'experience' %}is-active{% endif %}" href="/{{ current_language }}/experience/">{% translate "Досвід" %}</a>
+          <a class="{% if page_name == 'contact' %}is-active{% endif %}" href="/{{ current_language }}/contact/">{% translate "Контакти" %}</a>
+        </nav>
+      </div>
+
+      <aside class="header-contact" aria-label="{% translate 'Контакти' %}">
+        <a class="header-contact__phone" href="tel:+380675435910"><span aria-hidden="true">☎</span> +380 67 543 59 10</a>
+        <nav class="header-contact__socials" aria-label="Social media">
+          <a href="https://www.facebook.com/usdm.ua" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/usdm.ua/" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
+          <a href="https://t.me/USDModular" target="_blank" rel="noopener" aria-label="Telegram">➤</a>
+          <a href="https://wa.me/+380675435910" target="_blank" rel="noopener" aria-label="WhatsApp">◉</a>
+          <a href="mailto:sb@usdm.com.ua" aria-label="Email">✉</a>
+        </nav>
+      </aside>
+    </div>
   </header>
 
   <main>{% block content %}{% endblock %}</main>
 
-  <footer>
+  <footer class="site-footer">
     <a href="/{{ current_language }}/imprint/">{% translate "Імпресум" %}</a>
     <a href="/{{ current_language }}/privacy/">{% translate "Конфіденційність" %}</a>
   </footer>
