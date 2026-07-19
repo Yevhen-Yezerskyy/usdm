@@ -3,6 +3,7 @@ services:
     image: nginx:1.27-alpine
     container_name: usdm-nginx
     restart: unless-stopped
+    command: /bin/sh -c 'while sleep 6h; do nginx -s reload; done & exec nginx -g "daemon off;"'
     depends_on:
       - usdm-dev
       - usdm-prod
@@ -103,4 +104,3 @@ volumes:
   certbot-etc:
   usdm-prod-code:
   usdm-files:
-
