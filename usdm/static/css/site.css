@@ -52,6 +52,10 @@ body {
   background: #fff;
 }
 
+.development-scroll-space {
+  height: 3000px;
+}
+
 a {
   color: inherit;
 }
@@ -62,7 +66,7 @@ a {
   z-index: 10;
   display: flex;
   justify-content: center;
-  height: 120.328px;
+  height: 120.328125px;
   padding: 5px 30px 10px;
   background: #fff;
   background-image: url("../img/header-line.png");
@@ -84,7 +88,7 @@ a {
   display: block;
   flex: 0 0 250px;
   width: 250px;
-  margin-left: 6px;
+  margin-left: 5.984375px;
   margin-right: auto;
   line-height: 0;
 }
@@ -114,8 +118,11 @@ a {
 }
 
 .language-switcher a {
+  position: relative;
+  top: 6.546875px;
+  right: .984375px;
   display: block;
-  padding: 4px 6px;
+  padding: 2px 3px;
   background: var(--usdm-yellow);
   color: #fff;
   font-size: 11px;
