@@ -34,4 +34,5 @@ def language_entry(request):
 def page(request, lang, page_name):
     if lang not in settings.SITE_LANGUAGES or page_name not in PAGE_NAMES:
         raise Http404
-    return render(request, "pages/placeholder.html", {"page_name": page_name})
+    template_name = "pages/home.html" if page_name == "home" else "pages/placeholder.html"
+    return render(request, template_name, {"page_name": page_name})

@@ -1,0 +1,7 @@
+<section class="hero hero--parallax {{ modifier }}" data-parallax data-parallax-velocity="0.3">
+  <div class="hero__inner content-shell">
+    {% if is_page_title %}<h1 class="hero__title">{{ title }}</h1>{% else %}<h2 class="hero__title">{{ title }}</h2>{% endif %}
+    <p class="hero__subtitle">{{ subtitle }}{% if subtitle_second %}<br>{{ subtitle_second }}{% endif %}</p>
+  </div>
+</section>
+<div class="section-transition" aria-hidden="true"></div>

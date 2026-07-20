@@ -1,0 +1,24 @@
+{% load static %}
+<article class="feature-card{% if secondary_url %} feature-card--stacked-actions{% endif %}">
+  {% if title and not title_after_image %}<h3 class="feature-card__title">{{ title }}</h3>{% endif %}
+  <img class="feature-card__image" src="{% static image %}" width="600" height="338" alt="{{ title }}">
+  {% if title_after_image %}<h3 class="feature-card__title feature-card__title--after-image">{{ title }}</h3>{% endif %}
+  {% if body %}<p class="feature-card__body{% if title_after_image %} feature-card__body--after-title{% endif %}">{{ body }}</p>{% endif %}
+  <div class="feature-card__actions">
+    {% if download_url %}
+      <a class="button button--primary" href="{{ download_url }}" download>
+        <span>{{ download_label }}</span><span class="button__icon button__icon--download" aria-hidden="true"></span>
+      </a>
+    {% endif %}
+    {% if detail_url %}
+      <a class="button button--primary" href="{{ detail_url }}">
+        <span>{{ detail_label }}</span><span class="button__icon button__icon--next" aria-hidden="true"></span>
+      </a>
+    {% endif %}
+    {% if secondary_url %}
+      <a class="button button--primary" href="{{ secondary_url }}">
+        <span>{{ secondary_label }}</span><span class="button__icon button__icon--next" aria-hidden="true"></span>
+      </a>
+    {% endif %}
+  </div>
+</article>

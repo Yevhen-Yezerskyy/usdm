@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}USDM{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/site.css' %}?v=20260719-8">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}?v=20260720-1">
 </head>
 <body>
   <header class="site-header">
@@ -57,8 +57,9 @@
     </div>
   </header>
 
-  <main>{% block content %}{% endblock %}</main>
+  <main class="site-main">{% block content %}{% endblock %}</main>
 
   {% include "partials/footer.html" %}
+  <script src="{% static 'js/site.js' %}?v=20260719-1" defer></script>
 </body>
 </html>

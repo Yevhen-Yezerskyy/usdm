@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}USDM{% endblock %}
+
+{% block content %}
+  {% url "technology" lang=current_language as technology_url %}
+  {% url "houses" lang=current_language as houses_url %}
+  {% url "experience" lang=current_language as experience_url %}
+  {% url "contact" lang=current_language as contact_url %}
+  {% translate "ДОКЛАДНІШЕ" as detail_label %}
+  {% translate "ВІДПРАВИТИ ЗАПИТ" as request_label %}
+
+  {% translate "ВИРОБНИЦТВО КАРКАСНО-ПАНЕЛЬНИХ БУДИНКІВ" as hero_title %}
+  {% translate "ЕКСПОРТ БУДІВЕЛЬНИХ КОМПЛЕКТІВ" as hero_subtitle %}
+  {% translate "10 РОКІВ ДОСВІДУ" as hero_experience %}
+  {% include "components/parallax_banner.html" with modifier="hero--home" title=hero_title subtitle=hero_subtitle subtitle_second=hero_experience is_page_title=True %}
+
+  {% translate "ВИРОБНИЦТВО ТА ЕКСПОРТ" as production_heading %}
+  {% include "components/section_heading.html" with title=production_heading %}
+
+  <section class="feature-section">
+    <div class="feature-grid layout-row">
+      {% translate "Префабриковані каркасно-панельні дерев’яні будівельні комплекти" as production_title %}
+      {% translate "Виробництво будівельних комплектів для каркасно-панельних будинків. Дерев’яний несучий каркас, багатошарові панелі зовнішніх та внутрішніх стін, перегородок, покрівлі, перекриття, підлоги, ферми або покриття. Виробництво здійснюється на автоматизованій лінії WEINMANN." as production_body %}
+      {% translate "ЗАВАНТАЖИТИ ПРЕЗЕНТАЦІЮ" as download_label %}
+      {% static "docs/prefab-timber-frame-ukraine.pdf" as presentation_url %}
+      {% include "components/feature_card.html" with title=production_title image="img/home-production.jpg" body=production_body download_url=presentation_url download_label=download_label detail_url=technology_url detail_label=detail_label %}
+
+      {% translate "Каркасно-панельні будинки та споруди" as houses_title %}
+      {% translate "Будівництво за модульною технологією. Виробництво готових модульних будинків в цеху, доставка та монтаж. Будинки виробляються з різним ступенем готовності та комплектації – від зовнішнього оздоблення до повністю готового будинку." as houses_body %}
+      {% include "components/feature_card.html" with title=houses_title image="img/home-houses.jpg" body=houses_body detail_url=houses_url detail_label=detail_label %}
+    </div>
+  </section>
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% translate "ТЕХНОЛОГІЇ ТА РОЗТАШУВАННЯ" as technology_heading %}
+  {% include "components/section_heading.html" with title=technology_heading %}
+
+  <section class="feature-section">
+    <div class="feature-grid layout-row">
+      {% translate "Модульна технологія будівництва. Технологія каркасно-панельного будівництва. Застосування сертифікованої технології WEINMANN для виробництва каркасів та панелей. Енергозберігаючі технології. Технології проектування. Технологія швидкого монтажу будинків. Використання сучасних технологій будівництва та виробництва формує високотехнологічне підприємство, що здатне забезпечити високу якість виробництва та будівництва." as technology_body %}
+      {% include "components/feature_card.html" with image="img/home-technology.jpg" body=technology_body detail_url=technology_url detail_label=detail_label %}
+
+      {% translate "Виробничі потужності ТОВ «ЮСДМ» розташовані у Закарпатській області, м. Іршава, та в Київській області. Розташоване в Закарпатті виробництво обслуговує захід України. Це полегшує та здешевлює логістику, покращує сервіс клієнтам. Розташування на відстані до 100 км до кордонів із Словаччиною, Угорщиною та Румунією сприяє експорту до Європи. Розташоване в Київський області виробництво спрямоване на відбудову руйнувань, які зазнала Київська область весною цього року." as location_body %}
+      {% include "components/feature_card.html" with image="img/home-location.jpg" body=location_body detail_url=contact_url detail_label=request_label %}
+    </div>
+  </section>
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% translate "ПРОДУКЦІЯ ТА РОБОТИ" as products_heading %}
+  {% include "components/section_heading.html" with title=products_heading %}
+
+  <section class="feature-section feature-section--compact">
+    <div class="feature-grid layout-row">
+      <article class="feature-card">
+        <img class="feature-card__image" src="{% static 'img/home-products.jpg' %}" width="600" height="338" alt="{{ products_heading }}">
+      </article>
+      <article class="feature-card">
+        <ul class="feature-list">
+          <li>{% translate "Повні комплекти для будівництва каркасно-панельних будинків – дерев’яний несучий каркас, багатошарові панелі зовнішніх та внутрішніх стін, перегородок, покрівлі, перекриття, підлоги, ферми або покриття, з встановленими вікнами та дверима." %}</li>
+          <li>{% translate "Модульні каркасно-панельні будинки різного ступеню готовності від зовнішнього оздоблення, вікон та покрівлі до повністю готового будинку з внутрішнім оздобленням, внутрішніми комунікаціями, освітленням, сантехнікою, меблями." %}</li>
+          <li>{% translate "Доставка комплектів каркасно-панельних будинків та модульних будинків територією України та до ЄС. Роботи по монтажу каркасно-панельних будинків, монтажу модульних будинків, влаштуванню (будівництву) фундаментів, зовнішніх комунікацій та благоустрою ділянки на території Україні, та всебічну проектну та технологічну підтримку по виконанню цих робіт на території ЄС." %}</li>
+        </ul>
+      </article>
+      <div class="feature-grid__actions">
+        <a class="button button--primary" href="{{ contact_url }}"><span>{{ request_label }}</span><span class="button__icon button__icon--next" aria-hidden="true"></span></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% translate "КАРКАСНО-ПАНЕЛЬНІ БУДИНКИ" as houses_banner_title %}
+  {% translate "10 РОКІВ ДОСВІДУ" as houses_banner_subtitle %}
+  {% translate "МОДУЛЬНА ТЕХНОЛОГІЯ БУДІВНИЦТВА" as houses_banner_second %}
+  {% include "components/parallax_banner.html" with modifier="hero--houses" title=houses_banner_title subtitle=houses_banner_subtitle subtitle_second=houses_banner_second %}
+
+  <section class="feature-section">
+    <div class="feature-grid feature-grid--three layout-row">
+      {% translate "ПРОЕКТИ ТА ЦІНИ" as projects_label %}
+      {% translate "Будинок зі скатним дахом 142 м2" as house_142_title %}
+      {% translate "Одноповерховий будинок з 5 спальнями, 3 санвузлами, вітальнею – студією 50,1 м2. Комфортний для проживання для сім’ї на 5-6 чоловік." as house_142_body %}
+      {% include "components/feature_card.html" with title=house_142_title title_after_image=True image="img/home-house-142.jpg" body=house_142_body detail_url=houses_url detail_label=projects_label secondary_url=contact_url secondary_label=request_label %}
+
+      {% translate "Двоповерховий будинок з плоским дахом 393 м2" as house_393_title %}
+      {% translate "Просторий будинок з 3 спальнями, 6 санвузлами, вітальнею, кухнею столовою та вітальнею – студією, з 2 терасами: 21 м2 та 20,7 м2. Великий гараж на 3 автомобіля." as house_393_body %}
+      {% include "components/feature_card.html" with title=house_393_title title_after_image=True image="img/home-house-393.jpg" body=house_393_body detail_url=houses_url detail_label=projects_label secondary_url=contact_url secondary_label=request_label %}
+
+      {% translate "Двоповерховий дуплекс 354 м2" as house_354_title %}
+      {% translate "Будинок розрахований на 2 сім’ї. У будинку 2 двоповерхові апартаменти з 3 спальнями, вітальнею, кухнею-їдальнею, ванними кімнатами та гаражем." as house_354_body %}
+      {% include "components/feature_card.html" with title=house_354_title title_after_image=True image="img/home-house-354.jpg" body=house_354_body detail_url=houses_url detail_label=projects_label secondary_url=contact_url secondary_label=request_label %}
+    </div>
+  </section>
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% translate "ТОВ “ЮСДМ”" as company_banner_title %}
+  {% translate "ВИРОБНИЦТВО ТА БУДІВНИЦТВО" as company_banner_subtitle %}
+  {% include "components/parallax_banner.html" with modifier="hero--company" title=company_banner_title subtitle=company_banner_subtitle subtitle_second=hero_experience %}
+
+  {% translate "ПРО КОМПАНІЮ" as company_heading %}
+  {% include "components/section_heading.html" with title=company_heading %}
+  <section class="feature-section feature-section--compact">
+    <div class="feature-grid layout-row">
+      <article class="feature-card"><img class="feature-card__image" src="{% static 'img/home-company.jpg' %}" width="600" height="338" alt="{{ company_heading }}"></article>
+      <article class="feature-card feature-card__copy">
+        <p>{% translate "ТОВ «ЮСДМ» є будівельною та виробничою компанією. За 10 років ми збудували декілька сотень будинків та споруд, загальною площею більш ніж 35 000 м2, з яких 10 000 м2 використовуючи модульну технологію будівництва. Більшість збудованого є каркасно-панельні будинки з дерев’яним каркасом. Здобуто величезний досвід в промисловому виробництві дерев’яних каркасно-панельних елементів будинків та споруд." %}</p>
+        <p>{% translate "ТОВ «ЮСДМ» є членом Німецько-Української промислово-торговельної палати (AHK Ukraine)." %}</p>
+        <p>{% translate "ТОВ «ЮСДМ» має досвідчений та освідчений персонал, який здатен виконувати проектні та технологічні роботи, керувати виробничим процесом, забезпечувати необхідну якість менеджменту від узгодження економічних та інженерних умов замовлення до передачі готової продукції, або здачі готового будинку." %}</p>
+      </article>
+    </div>
+  </section>
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% translate "КАРКАСНО-ПАНЕЛЬНЕ БУДІВНИЦТВО" as construction_title %}
+  {% translate "КРАЩІ ВЛАСТИВОСТІ ДЕРЕВА" as construction_subtitle %}
+  {% translate "ВИСОКОТЕХНОЛОГІЧНЕ ВИРОБНИЦТВО" as construction_second %}
+  {% include "components/parallax_banner.html" with modifier="hero--construction" title=construction_title subtitle=construction_subtitle subtitle_second=construction_second %}
+
+  {% translate "ДОСВІД ТОВ “ЮСДМ”" as experience_heading %}
+  {% include "components/section_heading.html" with title=experience_heading %}
+  <section class="feature-section feature-section--compact">
+    <div class="feature-grid layout-row">
+      <article class="feature-card"><img class="feature-card__image" src="{% static 'img/home-experience.jpg' %}" width="600" height="338" alt="{{ experience_heading }}"></article>
+      <article class="feature-card feature-card__copy">
+        <p>{% translate "За 10 років ми збудували різноманітні будинки та споруди. Від ресторану до дачного будинку, від готелю до гаражу, від рекреаційного комплексу до житлового будинку на березі Дніпра. Збудовані нами будинки розташовані по всій Україні – від Дніпра до Тернополя, від Київський області до Закарпаття." %}</p>
+        <p>{% translate "Будинки та споруди одно та багатоповерхові, житлові та комерційні, різного рівня складності, різної площі та призначення. Цей величезний досвід ми використовуємо задля досягнення високої якості будівництва та виробництва, та постійно оновлюємся й здобуваємо новий досвід." %}</p>
+        <p>{% translate "Засновники та керівники ТОВ «ЮСДМ» створили та вивели на український ринок будинки SKANDI – будинки у стилі Barnhouse. Десятки таких будинків збудовано по всій Україні." %}</p>
+        {% translate "ПЕРЕДИВИТИСЬ ЗБУДОВАНЕ НАМИ" as experience_label %}
+        <a class="button button--primary" href="{{ experience_url }}"><span>{{ experience_label }}</span><span class="button__icon button__icon--next" aria-hidden="true"></span></a>
+      </article>
+    </div>
+  </section>
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% translate "ДЕРЕВ’ЯНИЙ КАРКАС ТА ТЕХНОЛОГІЧНІ ПАНЕЛІ" as panels_title %}
+  {% translate "КОМПЛЕКТИ ДЛЯ КАРКАСНО-ПАНЕЛЬНОГО БУДІВНИЦТВА" as panels_subtitle %}
+  {% include "components/parallax_banner.html" with modifier="hero--panels" title=panels_title subtitle=panels_subtitle %}
+{% endblock %}
