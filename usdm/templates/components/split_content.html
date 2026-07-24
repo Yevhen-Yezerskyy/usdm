@@ -1,0 +1,25 @@
+{% load static content_tags %}
+<section class="feature-section feature-section--compact split-content">
+  <div class="feature-grid layout-row">
+    <article class="feature-card">
+      <img class="feature-card__image" src="{% static image %}" width="600" height="338" alt="{{ title|default:heading }}" decoding="async">
+    </article>
+    <article class="feature-card feature-card__copy">
+      {% if title %}<h3 class="feature-card__title">{{ title }}</h3>{% endif %}
+      {% if paragraph1 %}<p>{% if paragraph1_bold %}<strong>{{ paragraph1 }}</strong>{% elif paragraph1_prefix %}{{ paragraph1|bold_prefix:paragraph1_prefix }}{% else %}{{ paragraph1 }}{% endif %}</p>{% endif %}
+      {% if paragraph2 %}<p>{{ paragraph2 }}</p>{% endif %}
+      {% if paragraph3 %}<p>{{ paragraph3 }}</p>{% endif %}
+      {% if paragraph4 %}<p>{{ paragraph4 }}</p>{% endif %}
+      {% if list1 %}
+        <ul class="feature-list">
+          <li>{{ list1 }}</li>
+          {% if list2 %}<li>{{ list2 }}</li>{% endif %}
+          {% if list3 %}<li>{{ list3 }}</li>{% endif %}
+        </ul>
+      {% endif %}
+      {% if action_url %}
+        <a class="button button--primary" href="{{ action_url }}"><span>{{ action_label }}</span><span class="button__icon button__icon--next" aria-hidden="true"></span></a>
+      {% endif %}
+    </article>
+  </div>
+</section>

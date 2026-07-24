@@ -1,0 +1,8 @@
+{% load content_tags %}
+{% if block.kind == "li" %}
+  <div class="project-copy__line">{% if block.bold_all %}<strong>{{ block.text }}</strong>{% elif block.bold_prefix %}{{ block.text|bold_prefix:block.bold_prefix }}{% elif block.italic_all %}<em>{{ block.text }}</em>{% else %}{{ block.text }}{% endif %}</div>
+{% elif block.price_amount %}
+  <p class="project-price"><strong><span>{{ block.text|price_label:block.price_amount }}</span><span>{{ block.price_amount }}</span></strong></p>
+{% else %}
+  <p>{% if block.bold_all %}<strong>{{ block.text }}</strong>{% elif block.bold_prefix %}{{ block.text|bold_prefix:block.bold_prefix }}{% elif block.italic_all %}<em>{{ block.text }}</em>{% else %}{{ block.text }}{% endif %}</p>
+{% endif %}

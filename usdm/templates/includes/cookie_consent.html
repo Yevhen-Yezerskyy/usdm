@@ -1,0 +1,10 @@
+<div class="site-consent"
+     data-site-consent
+     data-consent-cookie="{{ consent_cookie_name }}"
+     data-consent-categories="{{ consent_categories }}"
+     data-consent-privacy-url="{{ consent_privacy_url }}"
+     hidden></div>
+<button class="site-consent-launcher" type="button" data-consent-open aria-label="Cookie-Einstellungen öffnen" title="Cookie-Einstellungen">
+  <span>Cookie-Einstellungen</span>
+</button>
+{% include "./cookie_consent_text.html" %}

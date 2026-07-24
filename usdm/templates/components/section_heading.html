@@ -1,5 +1,5 @@
 {% load static %}
-<header class="section-heading">
+<header class="section-heading{% if inner %} section-heading--inner{% endif %}">
   <div class="section-heading__inner content-shell">
     <h2 class="section-heading__title">{{ title }}</h2>
     <div class="section-heading__line" aria-hidden="true">

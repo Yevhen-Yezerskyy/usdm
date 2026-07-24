@@ -1,0 +1,53 @@
+{% load i18n static content_tags %}
+{% include "components/section_heading.html" with title=project.heading inner=True %}
+<section class="project-section">
+  <div class="project-grid layout-row">
+    <div class="carousel" data-carousel data-lightbox-gallery>
+      <button class="carousel__control carousel__control--previous" type="button" aria-label="{% translate 'Попереднє зображення' %}" data-carousel-previous></button>
+      <div class="carousel__viewport" data-carousel-viewport>
+        <div class="carousel__track" data-carousel-track>
+          {% for image in project.images %}
+            <a class="carousel__slide" href="{% static image %}" data-lightbox-item aria-label="{{ project.heading }} — {{ forloop.counter }}">
+              <img src="{% static image %}" alt="{{ project.heading }} — {{ forloop.counter }}" loading="lazy" decoding="async">
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      <button class="carousel__control carousel__control--next" type="button" aria-label="{% translate 'Наступне зображення' %}" data-carousel-next></button>
+      <div class="carousel__pagination" data-carousel-pagination></div>
+    </div>
+    <div class="project-copy">
+      <div class="project-copy__column">
+        {% for block in project.body %}
+          {% if block.column == "left" %}{% include "components/project_text_block.html" with block=block %}{% endif %}
+        {% endfor %}
+        {% if project.room_tables %}
+          <div class="room-tables">
+            {% for table in project.room_tables %}
+              <table class="room-table">
+                <tbody>
+                  {% for row in table %}
+                    <tr>{% for cell in row %}<td>{% if cell.bold %}<strong>{{ cell.text }}</strong>{% else %}{{ cell.text }}{% endif %}</td>{% endfor %}</tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="project-copy__column">
+        {% for block in project.body %}
+          {% if block.column == "right" %}{% include "components/project_text_block.html" with block=block %}{% endif %}
+        {% endfor %}
+        <div class="project-documents">
+          {% for document in project.documents %}
+            <a href="{% static document.path %}" target="_blank" rel="noopener">{{ document.label }}</a>
+          {% endfor %}
+        </div>
+        <a class="button button--primary" href="{% url 'contact' lang=current_language %}">
+          {% translate "ВІДПРАВИТИ ЗАПИТ" %}<span class="button__icon button__icon--next" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}USDM — {% translate "Будинки" %}{% endblock %}
+
+{% block content %}
+  {% include "components/parallax_banner.html" with modifier="hero--houses-page" title=page_content.hero_title subtitle=page_content.hero_subtitle is_page_title=True %}
+
+  <section class="feature-section feature-section--compact">
+    <div class="feature-grid layout-row">
+      <article class="feature-card"><img class="feature-card__image" src="{% static page_content.intro.image %}" alt="{{ page_content.hero_title }}" decoding="async"></article>
+      <article class="feature-card feature-card__copy">
+        {% for paragraph in page_content.intro.body %}<p>{{ paragraph }}</p>{% endfor %}
+      </article>
+    </div>
+  </section>
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% include "components/parallax_banner.html" with modifier="hero--houses-family" title=page_content.family_title subtitle=page_content.family_subtitle %}
+
+  {% for project in page_content.projects %}
+    {% if forloop.counter == 5 %}
+      {% include "components/parallax_banner.html" with modifier="hero--houses-multi" title=page_content.multi_title subtitle=page_content.multi_subtitle %}
+    {% endif %}
+    {% include "components/project.html" with project=project %}
+    <div class="section-transition" aria-hidden="true"></div>
+  {% endfor %}
+
+  {% include "components/parallax_banner.html" with modifier="hero--houses-footer" title=page_content.footer_title subtitle=page_content.footer_subtitle %}
+{% endblock %}

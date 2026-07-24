@@ -1,0 +1,72 @@
+{% load i18n %}
+{% url 'datenschutz' lang=current_language as privacy_url %}
+<form id="contact-form" class="contact-form site-contact-form" action="{% url 'contact_submit' lang=current_language %}" method="post" enctype="multipart/form-data" novalidate data-contact-form>
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+  <input type="hidden" name="contact_session" value="" data-contact-session>
+  <script>
+    (() => {
+      const field = document.currentScript.previousElementSibling;
+      const syncSession = () => {
+        const cookie = document.cookie.split("; ").find((item) => item.startsWith("usdm_contact_session="));
+        field.value = cookie ? decodeURIComponent(cookie.split("=").slice(1).join("=")) : "";
+      };
+      syncSession();
+      field.form.addEventListener("submit", syncSession);
+    })();
+  </script>
+  <div class="contact-honeypot" aria-hidden="true">{{ contact_form.website }}</div>
+
+  {{ contact_status|json_script:"contact-server-status" }}
+  {{ contact_errors|json_script:"contact-server-errors" }}
+  {{ contact_messages|json_script:"contact-client-messages" }}
+
+  <div class="contact-form-grid">
+    <div class="contact-form__columns">
+      <div class="contact-form__column">
+        <label class="contact-form-field">
+          <span>{% translate "Ваше ім’я" %}</span>
+          {{ contact_form.first_name }}
+        </label>
+        <label class="contact-form-field contact-form__field-with-icon">
+          <span>{% translate "Електронна пошта" %}</span>
+          <span class="contact-form__field-icon contact-form__field-icon--mail" aria-hidden="true"></span>
+          {{ contact_form.email }}
+        </label>
+      </div>
+      <div class="contact-form__column">
+        <label class="contact-form-field">
+          <span>{% translate "Ваше прізвище" %}</span>
+          {{ contact_form.last_name }}
+        </label>
+        <label class="contact-form-field contact-form__field-with-icon">
+          <span>{% translate "Телефон" %}</span>
+          <span class="contact-form__field-icon contact-form__field-icon--phone" aria-hidden="true"></span>
+          {{ contact_form.phone }}
+        </label>
+      </div>
+    </div>
+
+    <label class="contact-form-field contact-form-field--message">
+      <span>{% translate "Повідомлення" %}</span>
+      {{ contact_form.message }}
+    </label>
+
+    <div class="contact-form-field contact-form-field--files">
+      <label class="contact-dropzone" data-contact-dropzone tabindex="0">
+        {{ contact_form.files }}
+        <span class="contact-dropzone-icon" aria-hidden="true"></span>
+        <strong>{% translate "Перетягніть файли сюди або виберіть їх" %}</strong>
+        <small>{% translate "Можна додати кілька файлів, загалом не більше 25 МБ." %}</small>
+      </label>
+      <ul class="contact-file-list" data-contact-file-list aria-live="polite"></ul>
+    </div>
+
+    <label class="contact-consent">
+      {{ contact_form.privacy }}
+      <span>{% translate "Я ознайомився(-лася) з" %} <a href="{{ privacy_url }}" target="_blank" rel="noopener">{% translate "політикою конфіденційності" %}</a> {% translate "та погоджуюся на обробку моїх персональних даних. *" %}</span>
+    </label>
+  </div>
+
+  <button class="button button--primary contact-form__submit contact-submit" type="submit">{% translate "ВІДПРАВИТИ ЗАПИТ" %}</button>
+</form>

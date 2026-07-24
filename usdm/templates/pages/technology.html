@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}USDM — {% translate "Технології" %}{% endblock %}
+
+{% block content %}
+  {% url "contact" lang=current_language as contact_url %}
+  {% url "houses" lang=current_language as houses_url %}
+  {% translate "ВІДПРАВИТИ ЗАПИТ" as request_label %}
+  {% translate "ПРОЕКТИ ТА ЦІНИ" as projects_label %}
+
+  {% translate "КАРКАСНО-ПАНЕЛЬНІ БУДИНКИ" as hero_title %}
+  {% translate "БУДІВНИЦТВО ЗА МОДУЛЬНОЮ ТЕХНОЛОГІЄЮ" as hero_subtitle %}
+  {% include "components/parallax_banner.html" with modifier="hero--technology" title=hero_title subtitle=hero_subtitle is_page_title=True %}
+
+  {% translate "КАРКАС ТА ПАНЕЛІ ДЛЯ БУДИНКІВ" as panels_heading %}
+  {% include "components/section_heading.html" with title=panels_heading inner=True %}
+  {% translate "Будівельні комплекти для каркасно-панельних будинків" as panels_title %}
+  {% translate "Повні комплектні набори для будівництва каркасно-панельних будинків – дерев’яний несучий каркас, багатошарові панелі зовнішніх та внутрішніх стін, перегородок, покрівлі, перекриття, підлоги, ферми або покриття. Комплекти поставляються у відповідності до проекту, узгодженого із замовником та в комплектації, що відповідає потребам та вимогам замовника." as panels_p1 %}
+  {% translate "Всі елементи комплектів для каркасно-панельних будинків та модульних будинків виготовляються на автоматизованій лінії WEINMANN." as panels_p2 %}
+  {% translate "Усі матеріали та сировина при виробництві комплектів каркасно-панельних будинків сертифіковані в ЄС, технологія WEINMANN (виробнича лінія та виробничі процеси) сертифікована в ЄС." as panels_p3 %}
+  {% include "components/split_content.html" with image="img/technology-panels.jpg" heading=panels_heading title=panels_title paragraph1=panels_p1 paragraph2=panels_p2 paragraph3=panels_p3 action_url=contact_url action_label=request_label %}
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% translate "МОДУЛЬНІ КАРКАСНО-ПАНЕЛЬНІ БУДИНКИ" as modular_heading %}
+  {% include "components/section_heading.html" with title=modular_heading inner=True %}
+  {% translate "Використовуємо модульну технологію будівництва." as modular_p1 %}
+  {% translate "Збираємо в цеху з виготовлених нами каркасно-панельних комплектів готові будинки з одного або декількох модулів, відповідно до проекту замовника або нашого власного проекту. При виробництві комплекту для модульного будинку передбачається необхідна міцність каркасу, що дозволить транспортувати готові модулі без пошкодження оздоблення, вікон та інженерних мереж." as modular_p2 %}
+  {% translate "Будинки виробляються з різним ступенем готовності та комплектації – від зовнішнього оздоблення до повністю готового будинку з внутрішнім оздобленням, внутрішніми інженерними мережами, сантехнікою, освітленням, кліматичним обладнанням, вбудованими меблями та побутовою технікою." as modular_p3 %}
+  {% translate "Готові будинки транспортують до місця будівництва, монтують на влаштований фундамент та підключають зовнішні комунікації." as modular_p4 %}
+  {% include "components/split_content.html" with image="img/technology-modular.jpg" heading=modular_heading paragraph1=modular_p1 paragraph1_bold=True paragraph2=modular_p2 paragraph3=modular_p3 paragraph4=modular_p4 action_url=houses_url action_label=projects_label %}
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% translate "ПРОЕКТУВАННЯ ТА АРХІТЕКТУРА" as design_heading %}
+  {% include "components/section_heading.html" with title=design_heading inner=True %}
+  {% translate "Архітектурна група розробляє власні проекти будинків, площею від 25 м2 і більше до багатоповерхових споруд 5-10 тис. м2 . Розроблено десятки різноманітних проектів будинків та споруд, з плоским та скатним дахом, житлового та комерційного призначення. Розроблена серія проектів SKANDI у стилі Barnhouse. До третини наших проектів було збудовано нами в Україні, у тому числі каркасно-панельних будинків за модульною технологією." as architecture_p1 %}
+  {% translate "Архітектурна група" as architecture_prefix %}
+  {% translate "Архітектори готують архітектурне рішення, що включає в себе вигляд та матеріали щодо зовнішнього та внутрішнього оздоблення, підбір сантехнічного обладнання, освітлення, меблів. Виконується якісне 3Д моделювання та візуалізація фотографічної якості архітектури та інтер’єру будинку." as architecture_p2 %}
+  {% include "components/split_content.html" with image="img/technology-architecture.jpg" heading=design_heading paragraph1=architecture_p1 paragraph1_prefix=architecture_prefix paragraph2=architecture_p2 %}
+  {% translate "Інженери та технологи виконують адаптацію проектів замовників під каркасно-панельне будівництво та під модульну технологію. Розраховуємо несучий каркас та статичні навантаження, виконуємо розробку та проектування систем опалення, кондиціонування та вентиляції, водопостачання та каналізації, електропостачання." as engineering_p1 %}
+  {% translate "Інженери та технологи" as engineering_prefix %}
+  {% translate "Всі проектні роботи виконуються з застосуванням BIM технології. Ми використовуємо AutoCAD, ArchiCAD, Autodesk Revit та 3ds MAX, та інше професійне програмне забезпечення, у тому числі для керування автоматичною лінією WEINMANN з ЧПУ." as engineering_p2 %}
+  {% include "components/split_content.html" with image="img/technology-engineering.jpg" heading=design_heading paragraph1=engineering_p1 paragraph1_prefix=engineering_prefix paragraph2=engineering_p2 action_url=contact_url action_label=request_label %}
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% translate "ТЕХНОЛОГІЯ МОДУЛЬНОГО БУДІВНИЦТВА" as modular_technology_heading %}
+  {% include "components/section_heading.html" with title=modular_technology_heading inner=True %}
+  {% translate "Застосовуючи модульну технологію будівництва, збираємо каркасно-панельний будинок за модульною структурою у цеху." as factory_p1 %}
+  {% translate "Виконуємо монтаж вікон, внутрішніх та зовнішніх дверей, роботи по зовнішньому оздобленню, влаштуванню покрівлі та водовідведення." as factory_p2 %}
+  {% translate "Прокладаємо інженерні мережі – електрична розводка, водогін, каналізація, кліматичне обладнання." as factory_p3 %}
+  {% translate "Виконуємо внутрішнє оздоблення, встановлюємо освітлення та електрофурнітуру, сантехнічне обладнання, монтуємо вбудовані меблі, кухню, побутову техніку." as factory_p4 %}
+  {% include "components/split_content.html" with image="img/technology-factory.jpg" heading=modular_technology_heading paragraph1=factory_p1 paragraph2=factory_p2 paragraph3=factory_p3 paragraph4=factory_p4 %}
+  {% translate "На ділянці замовника виконуємо роботи по влаштуванню зовнішніх комунікацій, будівництву фундаменту відповідно до нашого проекту та розрахунків на основі рельєфу та геології ділянки." as install_p1 %}
+  {% translate "Транспортування готових частин будинку – модулів здійснюється за допомогою спеціального низькорамного автотранспорту." as install_p2 %}
+  {% translate "Монтаж будинку здійснюється за допомогою крану." as install_p3 %}
+  {% translate "Модулі встановлюють на фундамент, ізолюють з’єднання, виконують підключення комунікацій" as install_p4 %}
+  {% include "components/split_content.html" with image="img/technology-installation.jpg" heading=modular_technology_heading paragraph1=install_p1 paragraph2=install_p2 paragraph3=install_p3 paragraph4=install_p4 action_url=contact_url action_label=request_label %}
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% translate "ЕНЕРГОЕФЕКТИВНІСТЬ ТА ЕКОЛОГІЧНІСТЬ" as energy_heading %}
+  {% include "components/section_heading.html" with title=energy_heading inner=True %}
+  {% translate "Енергоефективність та екологічність забезпечується каркасно-панельною технологією будівництва. Використання деревини та дерев’яних конструкцій, високоефективних многошарових сендвіч панелей, ефективних мінеральних та органічних утеплювачів та їх комбінації робить каркасно-панельні будинки енергоефективними та екологічними." as energy_p1 %}
+  {% translate "Підвищення енергоефективності забезпечується за рахунок використання вікон з склопакетами з трьох або чотирьох шарів, ретельному контролю за наявністю містків холоду, іншим рішенням щодо утеплення фасадів, вітрозахисту, конструкцій покрівлі, сендвічам панелей покриттів та підлоги." as energy_p2 %}
+  {% include "components/split_content.html" with image="img/technology-efficiency.jpg" heading=energy_heading paragraph1=energy_p1 paragraph2=energy_p2 %}
+  {% translate "Технічні та інженерні рішення по підвищенню енергоефективності включають в себе:" as energy_p3 %}
+  {% translate "Технічні та інженерні рішення" as energy_prefix %}
+  {% translate "використання вентиляції з рекуперацією" as energy_l1 %}
+  {% translate "використання повітряних або геотермальних теплових насосів для опалення, кондиціонування та гарячого водопостачання" as energy_l2 %}
+  {% translate "встановлення сонячних колекторів для підігріву води та сонячних панелей." as energy_l3 %}
+  {% translate "Ми маємо досвід реалізації таких проектів з використанням енергоефективних інженерних рішеннь в Україні." as energy_p4 %}
+  {% include "components/split_content.html" with image="img/technology-energy.jpg" heading=energy_heading paragraph1=energy_p3 paragraph1_prefix=energy_prefix list1=energy_l1 list2=energy_l2 list3=energy_l3 paragraph2=energy_p4 action_url=contact_url action_label=request_label %}
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% translate "АВТОМАТИЗОВАНА ЛІНІЯ WEINMANN" as footer_title %}
+  {% translate "ВИСОКОТОЧНЕ ОБЛАДНАННЯ ЗАБЕЗПЕЧУЄ ЯКІСТЬ КАРКАСНО-ПАНЕЛЬНОГО БУДИНКА" as footer_subtitle %}
+  {% include "components/parallax_banner.html" with modifier="hero--technology-footer" title=footer_title subtitle=footer_subtitle %}
+{% endblock %}

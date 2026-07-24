@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n content_tags %}
+
+{% block title %}USDM — {% translate "Контакт" %}{% endblock %}
+
+{% block content %}
+  {% include "components/parallax_banner.html" with modifier="hero--contact" title=page_content.hero_title subtitle=page_content.hero_subtitle is_page_title=True %}
+
+  <section class="contact-section">
+    <div class="contact-grid layout-row">
+      <article class="contact-card contact-card--company">
+        <h2>{{ page_content.company_heading }}</h2>
+        <span class="contact-card__line" aria-hidden="true"></span>
+        <h3>{{ page_content.company_name }}</h3>
+        <p>{{ page_content.company_description }}</p>
+        <ul class="contact-list">
+          {% for contact in page_content.company_contacts %}
+            <li>
+              <span class="contact-list__icon contact-list__icon--{% cycle 'globe' 'phone' 'mail' %}" aria-hidden="true"></span>
+              <a href="{{ contact.href }}">{{ contact.label }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </article>
+      <article class="contact-card contact-card--form">
+        <h2>{{ page_content.form_heading }}</h2>
+        <span class="contact-card__line" aria-hidden="true"></span>
+        <p>{{ page_content.form_intro }}</p>
+        {% include "components/contact_form.html" %}
+      </article>
+    </div>
+  </section>
+
+  <div class="section-transition" aria-hidden="true"></div>
+  <section class="representatives-section">
+    <div class="representatives-grid layout-row">
+      {% for representative in page_content.representatives %}
+        <article class="contact-card">
+          <h2>{{ representative.heading }}</h2>
+          <span class="contact-card__line" aria-hidden="true"></span>
+          <ul class="contact-list contact-list--representative">
+            {% for contact in representative.contacts %}
+              <li>
+                <span class="contact-list__icon contact-list__icon--{% if forloop.first %}arrow{% elif forloop.counter == 2 %}phone{% else %}mail{% endif %}" aria-hidden="true"></span>
+                <span>{% if contact.href %}<a href="{{ contact.href }}">{{ contact.label }}</a>{% elif contact.bold_prefix %}{{ contact.label|contact_address:contact.bold_prefix }}{% else %}{{ contact.label }}{% endif %}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% include "components/parallax_banner.html" with modifier="hero--contact-footer" title=page_content.footer_title subtitle=page_content.footer_subtitle %}
+{% endblock %}

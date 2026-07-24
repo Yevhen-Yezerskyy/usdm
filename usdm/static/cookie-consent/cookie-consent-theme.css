@@ -1,0 +1,12 @@
+:root {
+  --site-consent-font: "Roboto", Arial, Helvetica, sans-serif;
+  --site-consent-background: #fff;
+  --site-consent-surface: #f2f2ef;
+  --site-consent-text: #3b3b3b;
+  --site-consent-muted: rgb(59 59 59 / 74%);
+  --site-consent-accent: #ffb400;
+  --site-consent-accent-text: #1d1e1f;
+  --site-consent-border: rgb(59 59 59 / 32%);
+  --site-consent-radius: 0;
+  --site-consent-shadow: 0 22px 60px rgb(0 0 0 / 18%);
+}

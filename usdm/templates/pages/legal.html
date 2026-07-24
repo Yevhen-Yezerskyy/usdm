@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}USDM — {{ page_content.title }}{% endblock %}
+
+{% block content %}
+  <article class="legal-page">
+    <header class="legal-hero">
+      <div class="content-shell legal-hero__inner">
+        <p class="legal-hero__eyebrow">{{ page_content.eyebrow }}</p>
+        <h1>{{ page_content.title }}</h1>
+        <p class="legal-hero__lead">{{ page_content.lead }}</p>
+        {% if page_content.updated %}<p class="legal-hero__updated">{{ page_content.updated }}</p>{% endif %}
+      </div>
+    </header>
+
+    <div class="content-shell legal-layout">
+      <aside class="legal-sidebar">
+        <section class="legal-facts" aria-labelledby="legal-facts-title">
+          <h2 id="legal-facts-title">{{ page_content.facts_title }}</h2>
+          <dl>
+            {% for fact in page_content.facts %}
+              <div>
+                <dt>{{ fact.label }}</dt>
+                <dd>
+                  {% if fact.href %}<a href="{{ fact.href }}">{{ fact.value }}</a>{% else %}{{ fact.value }}{% endif %}
+                </dd>
+              </div>
+            {% endfor %}
+          </dl>
+        </section>
+
+        <nav class="legal-navigation" aria-label="{{ page_content.navigation_label }}">
+          <h2>{{ page_content.navigation_label }}</h2>
+          <ol>
+            {% for section in page_content.sections %}
+              <li><a href="#{{ section.id }}">{{ section.title }}</a></li>
+            {% endfor %}
+          </ol>
+        </nav>
+      </aside>
+
+      <div class="legal-article">
+        {% for section in page_content.sections %}
+          <section id="{{ section.id }}" class="legal-article__section">
+            <h2>{{ section.title }}</h2>
+            {% for paragraph in section.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+          </section>
+        {% endfor %}
+
+        <footer class="legal-article__contact">
+          <span aria-hidden="true">→</span>
+          <p>{{ page_content.facts_title }}<br><a href="mailto:info@usdm.com.ua">info@usdm.com.ua</a></p>
+        </footer>
+      </div>
+    </div>
+  </article>
+{% endblock %}

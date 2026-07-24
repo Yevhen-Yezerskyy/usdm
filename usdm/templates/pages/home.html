@@ -41,10 +41,11 @@
   <section class="feature-section">
     <div class="feature-grid layout-row">
       {% translate "Модульна технологія будівництва. Технологія каркасно-панельного будівництва. Застосування сертифікованої технології WEINMANN для виробництва каркасів та панелей. Енергозберігаючі технології. Технології проектування. Технологія швидкого монтажу будинків. Використання сучасних технологій будівництва та виробництва формує високотехнологічне підприємство, що здатне забезпечити високу якість виробництва та будівництва." as technology_body %}
-      {% include "components/feature_card.html" with image="img/home-technology.jpg" body=technology_body detail_url=technology_url detail_label=detail_label %}
+      {% include "components/feature_card.html" with image="img/home-technology.jpg" image_alt=technology_heading body=technology_body detail_url=technology_url detail_label=detail_label %}
 
+      {% translate "Розташування виробництва USDM" as location_image_alt %}
       {% translate "Виробничі потужності ТОВ «ЮСДМ» розташовані у Закарпатській області, м. Іршава, та в Київській області. Розташоване в Закарпатті виробництво обслуговує захід України. Це полегшує та здешевлює логістику, покращує сервіс клієнтам. Розташування на відстані до 100 км до кордонів із Словаччиною, Угорщиною та Румунією сприяє експорту до Європи. Розташоване в Київський області виробництво спрямоване на відбудову руйнувань, які зазнала Київська область весною цього року." as location_body %}
-      {% include "components/feature_card.html" with image="img/home-location.jpg" body=location_body detail_url=contact_url detail_label=request_label %}
+      {% include "components/feature_card.html" with image="img/home-location.jpg" image_alt=location_image_alt body=location_body detail_url=contact_url detail_label=request_label %}
     </div>
   </section>
 

@@ -1,17 +1,70 @@
 {% load i18n %}
 {% load static %}
 <!doctype html>
-<html lang="{{ current_language }}">
+<html lang="{{ seo.language_tag|default:current_language }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}USDM{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/site.css' %}?v=20260720-1">
+  <title>{{ seo.title }}</title>
+  <meta name="description" content="{{ seo.description }}">
+  <meta name="robots" content="{{ seo.robots }}">
+  <meta name="author" content="USDM">
+  <meta name="application-name" content="USDM">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#ffb400">
+  <link rel="canonical" href="{{ seo.canonical_url }}">
+  {% for alternate in seo.alternates %}<link rel="alternate" hreflang="{{ alternate.language }}" href="{{ alternate.url }}">
+  {% endfor %}
+  <link rel="icon" href="{% static 'img/favicon-64.gif' %}" sizes="64x64" type="image/gif">
+  <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.gif' %}" sizes="180x180" type="image/gif">
+  <link rel="icon" href="{% static 'img/favicon-192.gif' %}" sizes="192x192" type="image/gif">
+  <meta property="og:locale" content="{{ seo.og_locale }}">
+  <meta property="og:locale:alternate" content="{% if current_language == 'de' %}uk_UA{% else %}de_DE{% endif %}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="USDM">
+  <meta property="og:title" content="{{ seo.title }}">
+  <meta property="og:description" content="{{ seo.description }}">
+  <meta property="og:url" content="{{ seo.canonical_url }}">
+  <meta property="og:image" content="{{ seo.image_url }}">
+  <meta property="og:image:secure_url" content="{{ seo.image_url }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:alt" content="{{ seo.title }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ seo.title }}">
+  <meta name="twitter:description" content="{{ seo.description }}">
+  <meta name="twitter:image" content="{{ seo.image_url }}">
+  <meta name="twitter:image:alt" content="{{ seo.title }}">
+  <script type="application/ld+json">{{ seo.structured_data|safe }}</script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      pagePostType: "page",
+      pagePostType2: "single-page",
+      pagePostAuthor: "usdm",
+      pageType: "{{ seo.page_type|escapejs }}",
+      language: "{{ current_language|escapejs }}"
+    });
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({"gtm.start": new Date().getTime(), event: "gtm.js"});
+      var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l !== "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    }(window, document, "script", "dataLayer", "{{ seo.gtm_container_id }}"));
+  </script>
+  <link rel="stylesheet" href="{% static 'css/site.css' %}?v=20260724-26">
+  <link rel="stylesheet" href="{% static 'css/contact-form.css' %}?v=20260721-1">
+  <link rel="stylesheet" href="{% static 'cookie-consent/cookie-consent.css' %}?v=1">
+  <link rel="stylesheet" href="{% static 'cookie-consent/cookie-consent-theme.css' %}?v=1">
 </head>
 <body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ seo.gtm_container_id }}" height="0" width="0" style="display:none;visibility:hidden" aria-hidden="true"></iframe></noscript>
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="site-header__logo" href="/{{ current_language }}/" aria-label="USDM">
+      <a class="site-header__logo" href="/" aria-label="USDM">
         <img src="{% static 'img/usdm-logo.jpg' %}?v=20260719-2" width="400" height="100" alt="USDM">
       </a>
 
@@ -19,24 +72,24 @@
         <nav class="language-switcher" aria-label="Language switcher">
           {% for language in site_languages %}
             {% if not language.active %}
-              <a href="{{ language.url }}" hreflang="{{ language.code }}">{{ language.name }}</a>
+              <a href="{{ language.url }}" data-language-switch="{{ language.code }}" hreflang="{% if language.code == 'uk' %}uk-UA{% else %}de-DE{% endif %}">{{ language.name }}</a>
             {% endif %}
           {% endfor %}
         </nav>
 
         <details class="mobile-navigation">
-          <summary aria-label="{% translate 'Меню' %}"><span></span><span></span><span></span></summary>
+          <summary aria-label="{% translate 'Меню' %}"></summary>
           <nav aria-label="{% translate 'Основна навігація' %}">
-            <a href="/{{ current_language }}/">{% translate "Home" %}</a>
-            <a href="/{{ current_language }}/technology/">{% translate "Технології" %}</a>
-            <a href="/{{ current_language }}/houses/">{% translate "Будинки" %}</a>
-            <a href="/{{ current_language }}/experience/">{% translate "Досвід" %}</a>
-            <a href="/{{ current_language }}/contact/">{% translate "Контакт" %}</a>
+            <a class="{% if page_name == 'home' %}is-active{% endif %}" href="/"{% if page_name == 'home' %} aria-current="page"{% endif %}>{% translate "Home" %}</a>
+            <a class="{% if page_name == 'technology' %}is-active{% endif %}" href="/{{ current_language }}/technology/"{% if page_name == 'technology' %} aria-current="page"{% endif %}>{% translate "Технології" %}</a>
+            <a class="{% if page_name == 'houses' %}is-active{% endif %}" href="/{{ current_language }}/houses/"{% if page_name == 'houses' %} aria-current="page"{% endif %}>{% translate "Будинки" %}</a>
+            <a class="{% if page_name == 'experience' %}is-active{% endif %}" href="/{{ current_language }}/experience/"{% if page_name == 'experience' %} aria-current="page"{% endif %}>{% translate "Досвід" %}</a>
+            <a class="{% if page_name == 'contact' %}is-active{% endif %}" href="/{{ current_language }}/contact/"{% if page_name == 'contact' %} aria-current="page"{% endif %}>{% translate "Контакт" %}</a>
           </nav>
         </details>
 
         <nav class="primary-navigation" aria-label="{% translate 'Основна навігація' %}">
-          <a class="{% if page_name == 'home' %}is-active{% endif %}" href="/{{ current_language }}/">{% translate "Home" %}</a>
+          <a class="{% if page_name == 'home' %}is-active{% endif %}" href="/">{% translate "Home" %}</a>
           <a class="{% if page_name == 'technology' %}is-active{% endif %}" href="/{{ current_language }}/technology/">{% translate "Технології" %}</a>
           <a class="{% if page_name == 'houses' %}is-active{% endif %}" href="/{{ current_language }}/houses/">{% translate "Будинки" %}</a>
           <a class="{% if page_name == 'experience' %}is-active{% endif %}" href="/{{ current_language }}/experience/">{% translate "Досвід" %}</a>
@@ -45,13 +98,12 @@
       </div>
 
       <aside class="header-contact" aria-label="{% translate 'Контакти' %}">
-        <a class="header-contact__phone" href="tel:+380675435910"><span class="icon icon--phone" aria-hidden="true"></span><span>+380 67 543 59 10</span></a>
+        <a class="header-contact__phone" href="tel:+380974101430"><span class="icon icon--phone" aria-hidden="true"></span><span>+380 97 410 14 30</span></a>
         <nav class="header-contact__socials" aria-label="Social media">
           <a class="icon icon--facebook" href="https://www.facebook.com/usdm.ua" target="_blank" rel="noopener" aria-label="Facebook"></a>
           <a class="icon icon--instagram" href="https://www.instagram.com/usdm.ua/" target="_blank" rel="noopener" aria-label="Instagram"></a>
-          <a class="icon icon--telegram" href="https://t.me/USDModular" target="_blank" rel="noopener" aria-label="Telegram"></a>
-          <a class="icon icon--whatsapp" href="https://wa.me/+380675435910" target="_blank" rel="noopener" aria-label="WhatsApp"></a>
-          <a class="icon icon--mail" href="mailto:sb@usdm.com.ua" aria-label="Email"></a>
+          <a class="icon icon--whatsapp" href="https://wa.me/380974101430" target="_blank" rel="noopener" aria-label="WhatsApp"></a>
+          <a class="icon icon--mail" href="mailto:info@usdm.com.ua" aria-label="Email"></a>
         </nav>
       </aside>
     </div>
@@ -60,6 +112,10 @@
   <main class="site-main">{% block content %}{% endblock %}</main>
 
   {% include "partials/footer.html" %}
-  <script src="{% static 'js/site.js' %}?v=20260719-1" defer></script>
+  {% url 'datenschutz' lang=current_language as consent_privacy_url %}
+  {% include "includes/cookie_consent.html" with consent_cookie_name="usdm_cookie_consent_v2" consent_categories="statistics external_media" consent_privacy_url=consent_privacy_url %}
+  <script src="{% static 'js/site.js' %}?v=20260724-2" defer></script>
+  <script src="{% static 'js/contact-form.js' %}?v=20260721-1" defer></script>
+  <script src="{% static 'cookie-consent/cookie-consent.js' %}?v=1"></script>
 </body>
 </html>

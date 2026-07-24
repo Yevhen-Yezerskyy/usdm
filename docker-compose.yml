@@ -7,6 +7,7 @@ services:
     depends_on:
       - usdm-dev
       - usdm-prod
+      - contact-rate-guard
     ports:
       - "80:80"
       - "443:443"
@@ -44,6 +45,22 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  contact-rate-guard:
+    image: python:3.13-alpine
+    container_name: usdm-contact-rate-guard
+    restart: unless-stopped
+    environment:
+      RATE_GUARD_MAX_KEYS: "10000"
+    volumes:
+      - ./config/contact_rate_guard/server.py:/app/server.py:ro
+      - ./config/contact_rate_guard/test_server.py:/app/test_server.py:ro
+    command: ["python", "/app/server.py"]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 2s
+      retries: 3
 
   tools:
     build:

@@ -36,3 +36,39 @@ class TranslationValue(models.Model):
 
     def __str__(self):
         return f"{self.source.key}:{self.language}"
+
+
+class ContactRequest(models.Model):
+    first_name = models.CharField(max_length=120)
+    last_name = models.CharField(max_length=120, blank=True)
+    email = models.EmailField()
+    phone = models.CharField(max_length=80)
+    message = models.TextField()
+    language = models.CharField(max_length=10, choices=settings.LANGUAGES)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "contact_requests"
+        ordering = ("-created_at",)
+
+    def __str__(self):
+        return f"{self.first_name} — {self.created_at:%Y-%m-%d %H:%M}"
+
+
+class ContactAttachment(models.Model):
+    request = models.ForeignKey(
+        ContactRequest,
+        related_name="attachments",
+        on_delete=models.CASCADE,
+    )
+    file = models.FileField(upload_to="contact/%Y/%m/")
+    original_name = models.CharField(max_length=255)
+    content_type = models.CharField(max_length=160, blank=True)
+    size = models.PositiveBigIntegerField()
+
+    class Meta:
+        db_table = "contact_attachments"
+        ordering = ("id",)
+
+    def __str__(self):
+        return self.original_name

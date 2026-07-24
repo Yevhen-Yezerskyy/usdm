@@ -11,6 +11,8 @@ The Django project lives in `usdm/`; that directory contains `manage.py`, the
 - `usdm-prod` mounts the internal Docker volume `usdm-prod-code` at `/app` and runs Gunicorn.
 - `postgres` is shared by the dev and production processes.
 - `nginx` is the only service exposed on ports 80 and 443.
+- `contact-rate-guard` provides bounded, RAM-only request limits for the
+  contact form; nginx and Django use independent counters.
 - `certbot` owns ACME certificates and renewal.
 
 ## Languages and translations
@@ -48,6 +50,23 @@ services with `env_file`; the file is not mounted into the containers. Django
 settings read the values from environment variables. It currently contains
 the PostgreSQL database name, user and password, plus the required Django
 secret key. Never put plaintext secret values in tracked code or Compose.
+
+Contact requests are always stored in the `contact_requests` database table.
+To also send notifications by e-mail, add `EMAIL_HOST`, `EMAIL_PORT`,
+`EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `EMAIL_USE_TLS`,
+`DEFAULT_FROM_EMAIL`, and `CONTACT_RECIPIENT_EMAIL` to the ignored secrets
+file. If SMTP is not configured, submitting the form still stores the request.
+
+The public form is protected by CSRF validation, a honeypot, a signed
+two-hour browser-session token bound to the host and client IP, and layered
+request limits in nginx and Django. The rate guard keeps no persistent data,
+bans abusive keys for 24 hours, caps its in-memory key count, and fails open if
+the helper service is unavailable so that an infrastructure fault cannot take
+the form offline. Its paths must stay synchronized in
+`site_content/contact_rate_limit.py` and `config/contact_rate_guard/server.py`.
+Valid browser tokens are reused on later page loads, and the hidden form field
+is synchronized from the cookie again immediately before submission so that
+multiple tabs cannot invalidate a form being filled out.
 
 ## Production release
 

@@ -1,0 +1,10 @@
+{% load static %}
+<div class="gallery-section" data-lightbox-gallery>
+  <div class="gallery-grid layout-row">
+    {% for image in images %}
+      <a class="gallery-grid__item" href="{% static image %}" data-lightbox-item aria-label="{{ heading }} — {{ forloop.counter }}">
+        <img src="{% static image %}" alt="{{ heading }} — {{ forloop.counter }}" loading="lazy" decoding="async">
+      </a>
+    {% endfor %}
+  </div>
+</div>

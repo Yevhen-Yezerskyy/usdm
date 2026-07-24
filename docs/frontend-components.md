@@ -14,16 +14,24 @@ page-specific copies of widths and spacing.
   viewport gutters.
 - `.layout-row` is the shared 1248 px builder row. Put it inside a section that
   provides its own 30 px horizontal padding.
-- `.section-transition` is the standard 21 px boundary between major sections.
+- `.section-transition` is the standard 60 px boundary below every major
+  section. Do not add a second transition after `parallax_banner.html`; that
+  component already includes one.
 
 ## Reusable components
 
 - Use `components/section_heading.html` for major section headings and their
-  yellow line.
+  yellow line. Pass `inner=True` on non-home pages for the shared 28 px,
+  left-aligned internal-page variant. The home page deliberately keeps its
+  centered 40 px headings.
 - Use `components/parallax_banner.html` for every full-width parallax banner;
   pass only its background modifier and translated text.
 - Use `components/feature_card.html` inside `.feature-grid` for image, title,
   body and action groups.
+- Use `components/split_content.html` for repeated two-column image/text rows.
+- Use `components/project.html` for house descriptions and their two-up
+  carousel. Use `components/gallery.html` for three-column image galleries.
+  Both components participate in the one shared lightbox implementation.
 - Add `.feature-grid--three` for three equal cards; the mobile breakpoint still
   collapses the shared grid to one column.
 - Use `.button`, a visual modifier such as `.button--primary`, and
@@ -31,6 +39,8 @@ page-specific copies of widths and spacing.
 - Add `data-parallax` and `data-parallax-velocity` to sections that use the
   shared parallax behavior in `static/js/site.js`; do not create page-specific
   scroll handlers.
+- Interactive galleries use `data-carousel`, `data-lightbox-gallery`, and
+  `data-lightbox-item`; do not add another carousel or modal library.
 - Content images keep their intrinsic aspect ratio and fill the card width.
 - Text visible to visitors must use `{% translate %}` and values from the
   translation tables. Ukrainian is the source language.

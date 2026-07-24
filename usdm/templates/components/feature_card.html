@@ -1,7 +1,7 @@
 {% load static %}
 <article class="feature-card{% if secondary_url %} feature-card--stacked-actions{% endif %}">
   {% if title and not title_after_image %}<h3 class="feature-card__title">{{ title }}</h3>{% endif %}
-  <img class="feature-card__image" src="{% static image %}" width="600" height="338" alt="{{ title }}">
+  <img class="feature-card__image" src="{% static image %}" width="600" height="338" alt="{% if image_alt %}{{ image_alt }}{% else %}{{ title }}{% endif %}" decoding="async">
   {% if title_after_image %}<h3 class="feature-card__title feature-card__title--after-image">{{ title }}</h3>{% endif %}
   {% if body %}<p class="feature-card__body{% if title_after_image %} feature-card__body--after-title{% endif %}">{{ body }}</p>{% endif %}
   <div class="feature-card__actions">

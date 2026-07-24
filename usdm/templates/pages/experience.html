@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}USDM — {% translate "Досвід" %}{% endblock %}
+
+{% block content %}
+  {% include "components/parallax_banner.html" with modifier="hero--experience" title=page_content.hero_title subtitle=page_content.hero_subtitle is_page_title=True %}
+
+  <section class="feature-section feature-section--compact">
+    <div class="feature-grid layout-row">
+      <article class="feature-card"><img class="feature-card__image" src="{% static page_content.intro_image %}" alt="{{ page_content.hero_title }}" decoding="async"></article>
+      <article class="feature-card feature-card__copy">
+        {% for paragraph in page_content.intro_body %}<p>{{ paragraph }}</p>{% endfor %}
+      </article>
+    </div>
+  </section>
+
+  <div class="section-transition" aria-hidden="true"></div>
+  {% for gallery in page_content.galleries %}
+    {% include "components/section_heading.html" with title=gallery.heading inner=True %}
+    {% include "components/gallery.html" with images=gallery.images heading=gallery.heading %}
+    <div class="section-transition" aria-hidden="true"></div>
+  {% endfor %}
+{% endblock %}
