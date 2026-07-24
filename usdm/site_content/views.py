@@ -49,6 +49,10 @@ def language_entry(request):
     return page(request, request.LANGUAGE_CODE, "home")
 
 
+def cookie_page(request, page_name):
+    return page(request, request.LANGUAGE_CODE, page_name)
+
+
 def legacy_page_redirect(request, lang, page_name):
     return HttpResponseRedirect(reverse(page_name, kwargs={"lang": lang}), status=301)
 

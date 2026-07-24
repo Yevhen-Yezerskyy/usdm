@@ -50,7 +50,7 @@ class LanguageRoutingTests(TestCase):
         self.assertEqual(response["Content-Language"], "uk-UA")
 
     def test_cookie_switcher_uses_a_clean_root_url(self):
-        response = self.client.get("/uk/")
+        response = self.client.get("/")
         self.assertContains(response, 'href="/" data-language-switch="de"')
 
         self.client.cookies["usdm_language"] = "de"
@@ -64,13 +64,20 @@ class LanguageRoutingTests(TestCase):
         self.assertEqual(response.cookies["usdm_language"].value, "de")
         self.assertContains(response, "Technologie")
 
-    def test_switcher_uses_the_cookie_entry_point(self):
+    def test_switcher_keeps_the_current_page_url(self):
         response = self.client.get("/uk/houses/")
-        self.assertContains(response, 'href="/" data-language-switch="de"')
+        self.assertContains(response, 'href="/houses/" data-language-switch="de"')
 
         response = self.client.get("/de/houses/")
-        self.assertContains(response, 'href="/" data-language-switch="uk"')
+        self.assertContains(response, 'href="/houses/" data-language-switch="uk"')
         self.assertContains(response, ">Українська</a>")
+
+    def test_cookie_page_uses_selected_language_without_redirect(self):
+        self.client.cookies["usdm_language"] = "de"
+        response = self.client.get("/houses/")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Language"], "de-DE")
+        self.assertContains(response, "Vorgefertigte Häuser")
 
     def test_ukrainian_navigation_matches_source_site(self):
         response = self.client.get("/uk/")

@@ -5,6 +5,18 @@ from django.utils import translation
 from .language import preferred_language
 
 
+COOKIE_PAGE_SEGMENTS = {
+    "technology",
+    "houses",
+    "experience",
+    "contact",
+    "imprint",
+    "privacy",
+    "impressum",
+    "datenschutz",
+}
+
+
 class SiteLanguageMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -13,7 +25,7 @@ class SiteLanguageMiddleware:
         first_segment = request.path_info.strip("/").split("/", 1)[0].lower()
         if first_segment in settings.SITE_LANGUAGES:
             language = first_segment
-        elif not first_segment:
+        elif not first_segment or first_segment in COOKIE_PAGE_SEGMENTS:
             language = preferred_language(request)
         elif first_segment in {
             "health",
@@ -27,8 +39,6 @@ class SiteLanguageMiddleware:
             "prefab-houses",
             "experience-modular-frame-panel",
             "usdm-contacts-timber-frame-modular",
-            "impressum",
-            "datenschutz",
         }:
             language = settings.LANGUAGE_CODE
         else:
@@ -38,7 +48,11 @@ class SiteLanguageMiddleware:
         request.LANGUAGE_CODE = language
         try:
             response = self.get_response(request)
-            if first_segment in settings.SITE_LANGUAGES or not first_segment:
+            if (
+                first_segment in settings.SITE_LANGUAGES
+                or first_segment in COOKIE_PAGE_SEGMENTS
+                or not first_segment
+            ):
                 response["Content-Language"] = "de-DE" if language == "de" else "uk-UA"
             if first_segment in settings.SITE_LANGUAGES:
                 response.set_cookie(

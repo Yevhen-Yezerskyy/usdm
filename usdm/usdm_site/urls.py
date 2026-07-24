@@ -1,7 +1,7 @@
 from django.urls import path
 
 from site_content.contact_form import submit_contact
-from site_content.views import language_entry, legacy_page_redirect, page, robots_txt, sitemap_xml
+from site_content.views import cookie_page, language_entry, legacy_page_redirect, page, robots_txt, sitemap_xml
 
 from .views import health
 
@@ -16,6 +16,12 @@ urlpatterns = [
     path("prefab-houses/", legacy_page_redirect, {"lang": "uk", "page_name": "houses"}),
     path("experience-modular-frame-panel/", legacy_page_redirect, {"lang": "uk", "page_name": "experience"}),
     path("usdm-contacts-timber-frame-modular/", legacy_page_redirect, {"lang": "uk", "page_name": "contact"}),
+    path("technology/", cookie_page, {"page_name": "technology"}),
+    path("houses/", cookie_page, {"page_name": "houses"}),
+    path("experience/", cookie_page, {"page_name": "experience"}),
+    path("contact/", cookie_page, {"page_name": "contact"}),
+    path("imprint/", cookie_page, {"page_name": "imprint"}),
+    path("privacy/", cookie_page, {"page_name": "privacy"}),
     path("impressum/", legacy_page_redirect, {"lang": "uk", "page_name": "impressum"}),
     path("datenschutz/", legacy_page_redirect, {"lang": "uk", "page_name": "datenschutz"}),
     path("de/technologie/", legacy_page_redirect, {"lang": "de", "page_name": "technology"}),
