@@ -55,6 +55,14 @@
       f.parentNode.insertBefore(j, f);
     }(window, document, "script", "dataLayer", "{{ seo.gtm_container_id }}"));
   </script>
+  <script>
+    (function () {
+      var smrel = new URLSearchParams(window.location.search).get("smrel");
+      if (!smrel) return;
+      var image = new Image();
+      image.src = "https://stat.serenity-mail.com/?smrel=" + encodeURIComponent(smrel);
+    })();
+  </script>
   <link rel="stylesheet" href="{% static 'css/site.css' %}?v=20260724-26">
   <link rel="stylesheet" href="{% static 'css/contact-form.css' %}?v=20260721-1">
   <link rel="stylesheet" href="{% static 'cookie-consent/cookie-consent.css' %}?v=1">
