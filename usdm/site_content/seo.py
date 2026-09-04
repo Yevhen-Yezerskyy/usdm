@@ -40,8 +40,38 @@ _OG_IMAGES = {
     "datenschutz": "/static/img/og-home.jpg",
 }
 
-# German entries preserve the useful SEO copy from the original WordPress site.
+# Localized SEO copy for every public language.
 _COPY = {
+    "fr": {
+        "home": {
+            "title": "USDM | Maisons à ossature bois et maisons modulaires",
+            "description": "USDM fabrique des kits de construction à ossature bois et des maisons modulaires : structures en bois, panneaux techniques, production WEINMANN, livraison et montage en Europe.",
+        },
+        "technology": {
+            "title": "Technologie des maisons à ossature bois et modulaires | USDM",
+            "description": "Production automatisée WEINMANN de structures et panneaux en bois, construction écoénergétique, conception modulaire, livraison et montage de maisons.",
+        },
+        "houses": {
+            "title": "Maisons modulaires et à ossature bois : projets et prix | USDM",
+            "description": "Exemples de maisons modulaires et à ossature bois USDM : plans, équipements, prix indicatifs, livraison et montage.",
+        },
+        "experience": {
+            "title": "Réalisations de maisons modulaires et à ossature bois | USDM",
+            "description": "Plus de 10 ans d’expérience USDM : maisons réalisées, intérieurs, fabrication, livraison et montage de constructions modulaires et à ossature bois.",
+        },
+        "contact": {
+            "title": "Contact USDM | Maisons à ossature bois et modulaires",
+            "description": "Contactez USDM pour vos projets de maisons à ossature bois, kits de construction et maisons modulaires livrées et montées.",
+        },
+        "impressum": {
+            "title": "Mentions légales | USDM",
+            "description": "Informations légales sur TOV USDM, propriétaire du site et fabricant de maisons à ossature bois et de constructions en bois.",
+        },
+        "datenschutz": {
+            "title": "Politique de confidentialité | USDM",
+            "description": "Informations de TOV USDM sur le traitement des données personnelles des visiteurs de ce site.",
+        },
+    },
     "de": {
         "home": {
             "title": "USDM | Holzrahmen-Panelhäuser und Modulhäuser",
@@ -105,6 +135,15 @@ _COPY = {
 }
 
 _PAGE_LABELS = {
+    "fr": {
+        "home": "Accueil",
+        "technology": "Technologies",
+        "houses": "Maisons",
+        "experience": "Expérience",
+        "contact": "Contact",
+        "impressum": "Mentions légales",
+        "datenschutz": "Politique de confidentialité",
+    },
     "uk": {
         "home": "Головна",
         "technology": "Технології",
@@ -145,7 +184,7 @@ def page_seo(language, page_name):
     copy = _COPY[language][canonical_name]
     canonical_url = absolute_url(page_path(language, canonical_name))
     image_url = absolute_url(_OG_IMAGES[canonical_name])
-    language_tag = "de-DE" if language == "de" else "uk-UA"
+    language_tag = {"de": "de-DE", "fr": "fr-FR"}.get(language, "uk-UA")
     robots = "noindex, nofollow" if settings.DEBUG or page_name != canonical_name else "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
 
     schema = {
@@ -203,7 +242,7 @@ def page_seo(language, page_name):
                 "@id": f"{settings.SITE_PUBLIC_URL.rstrip('/')}/#website",
                 "url": settings.SITE_PUBLIC_URL,
                 "name": "USDM",
-                "inLanguage": ["uk-UA", "de-DE"],
+                "inLanguage": ["uk-UA", "de-DE", "fr-FR"],
                 "publisher": {"@id": f"{settings.SITE_PUBLIC_URL.rstrip('/')}/#organization"},
             }
         )
@@ -236,9 +275,15 @@ def page_seo(language, page_name):
         "image_url": image_url,
         "language_tag": language_tag,
         "og_locale": language_tag.replace("-", "_"),
+        "og_locale_alternates": [
+            tag.replace("-", "_")
+            for tag in ("uk-UA", "de-DE", "fr-FR")
+            if tag != language_tag
+        ],
         "alternates": [
             {"language": "uk-UA", "url": absolute_url(page_path("uk", canonical_name))},
             {"language": "de-DE", "url": absolute_url(page_path("de", canonical_name))},
+            {"language": "fr-FR", "url": absolute_url(page_path("fr", canonical_name))},
             {"language": "x-default", "url": absolute_url(page_path("uk", canonical_name))},
         ],
         "robots": robots,
@@ -249,12 +294,12 @@ def page_seo(language, page_name):
 
 
 def sitemap_urls():
-    for language in ("uk", "de"):
+    for language in ("uk", "de", "fr"):
         for page_name in PUBLIC_PAGE_NAMES:
             yield absolute_url(page_path(language, page_name))
 
 
 def sitemap_pages():
-    for language in ("uk", "de"):
+    for language in ("uk", "de", "fr"):
         for page_name in PUBLIC_PAGE_NAMES:
             yield language, page_name, absolute_url(page_path(language, page_name))

@@ -19,7 +19,8 @@
   <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.gif' %}" sizes="180x180" type="image/gif">
   <link rel="icon" href="{% static 'img/favicon-192.gif' %}" sizes="192x192" type="image/gif">
   <meta property="og:locale" content="{{ seo.og_locale }}">
-  <meta property="og:locale:alternate" content="{% if current_language == 'de' %}uk_UA{% else %}de_DE{% endif %}">
+  {% for locale in seo.og_locale_alternates %}<meta property="og:locale:alternate" content="{{ locale }}">
+  {% endfor %}
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="USDM">
   <meta property="og:title" content="{{ seo.title }}">
@@ -63,7 +64,7 @@
       image.src = "https://stat.serenity-mail.com/?smrel=" + encodeURIComponent(smrel);
     })();
   </script>
-  <link rel="stylesheet" href="{% static 'css/site.css' %}?v=20260724-26">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}?v=20260904-1">
   <link rel="stylesheet" href="{% static 'css/contact-form.css' %}?v=20260721-1">
   <link rel="stylesheet" href="{% static 'cookie-consent/cookie-consent.css' %}?v=1">
   <link rel="stylesheet" href="{% static 'cookie-consent/cookie-consent-theme.css' %}?v=1">
@@ -80,7 +81,7 @@
         <nav class="language-switcher" aria-label="Language switcher">
           {% for language in site_languages %}
             {% if not language.active %}
-              <a href="{{ language.url }}" data-language-switch="{{ language.code }}" hreflang="{% if language.code == 'uk' %}uk-UA{% else %}de-DE{% endif %}">{{ language.name }}</a>
+              <a href="{{ language.url }}" data-language-switch="{{ language.code }}" hreflang="{{ language.language_tag }}" lang="{{ language.code }}">{{ language.name }}</a>
             {% endif %}
           {% endfor %}
         </nav>
@@ -122,6 +123,36 @@
   {% include "partials/footer.html" %}
   {% url 'datenschutz' lang=current_language as consent_privacy_url %}
   {% include "includes/cookie_consent.html" with consent_cookie_name="usdm_cookie_consent_v2" consent_categories="statistics external_media" consent_privacy_url=consent_privacy_url %}
+  {% if current_language == 'fr' %}
+  <script>
+    (function () {
+      var launcher = document.querySelector(".site-consent-launcher[data-consent-open]");
+      var textNode = document.querySelector("[data-site-consent-texts]");
+      if (launcher) {
+        launcher.setAttribute("aria-label", "Ouvrir les paramètres des cookies");
+        launcher.setAttribute("title", "Paramètres des cookies");
+        var label = launcher.querySelector("span");
+        if (label) label.textContent = "Paramètres des cookies";
+      }
+      if (textNode) textNode.textContent = JSON.stringify({
+        title: "Paramètres de confidentialité",
+        intro: "Nous utilisons des cookies nécessaires ainsi que des services facultatifs pour les statistiques et les médias externes. Vous pouvez modifier votre choix à tout moment.",
+        settings: "Paramètres",
+        acceptAll: "Tout accepter",
+        necessaryOnly: "Nécessaires uniquement",
+        close: "Fermer",
+        save: "Enregistrer le choix",
+        privacy: "Confidentialité",
+        necessaryTitle: "Cookies nécessaires",
+        necessaryText: "Nécessaires au fonctionnement du site et à l’enregistrement de votre choix.",
+        statisticsTitle: "Statistiques",
+        statisticsText: "Nous aident à comprendre l’utilisation du site et à améliorer notre offre.",
+        externalMediaTitle: "Médias externes",
+        externalMediaText: "Permettent de charger des contenus externes. Des données peuvent alors être transmises au fournisseur concerné."
+      });
+    }());
+  </script>
+  {% endif %}
   <script src="{% static 'js/site.js' %}?v=20260724-2" defer></script>
   <script src="{% static 'js/contact-form.js' %}?v=20260721-1" defer></script>
   <script src="{% static 'cookie-consent/cookie-consent.js' %}?v=1"></script>

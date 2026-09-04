@@ -180,6 +180,7 @@ summary:focus-visible {
 
 .language-switcher {
   display: flex;
+  gap: 4px;
   flex: 0 0 25px;
   align-items: flex-start;
   justify-content: flex-end;

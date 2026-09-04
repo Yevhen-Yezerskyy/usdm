@@ -86,6 +86,7 @@ def robots_txt(request):
                 "Disallow: /health/",
                 "Disallow: /uk/contact/send/",
                 "Disallow: /de/contact/send/",
+                "Disallow: /fr/contact/send/",
                 f"Sitemap: {settings.SITE_PUBLIC_URL.rstrip('/')}/sitemap.xml",
                 "",
             ]
@@ -102,7 +103,11 @@ def sitemap_xml(request):
                 hreflang=hreflang,
                 url=escape(f"{site_url}{page_path(language_code, page_name)}"),
             )
-            for hreflang, language_code in (("uk-UA", "uk"), ("de-DE", "de"))
+            for hreflang, language_code in (
+                ("uk-UA", "uk"),
+                ("de-DE", "de"),
+                ("fr-FR", "fr"),
+            )
         )
         alternates += '<xhtml:link rel="alternate" hreflang="x-default" href="{url}"/>'.format(
             url=escape(f"{site_url}{page_path('uk', page_name)}"),

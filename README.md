@@ -17,9 +17,9 @@ The Django project lives in `usdm/`; that directory contains `manage.py`, the
 
 ## Languages and translations
 
-- Ukrainian (`uk`) is the source and default language; German (`de`) is also
-  supported.
-- Public pages always use a language prefix: `/uk/...` or `/de/...`.
+- Ukrainian (`uk`) is the source and default language; German (`de`) and
+  French (`fr`) are also supported.
+- Public pages always use a language prefix: `/uk/...`, `/de/...`, or `/fr/...`.
 - A visit to `/` selects the language in this order: `usdm_language` cookie,
   `Accept-Language` header, then Ukrainian fallback.
 - Visiting a prefixed URL activates that language and refreshes the cookie.

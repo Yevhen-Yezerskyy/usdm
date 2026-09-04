@@ -18,12 +18,14 @@ def language_navigation(request):
 
     languages = []
     labels = dict(settings.LANGUAGES)
+    language_tags = {"uk": "uk-UA", "de": "de-DE", "fr": "fr-FR"}
     for code in settings.SITE_LANGUAGES:
         url = f"/{page_path}" if page_path else "/"
         languages.append(
             {
                 "code": code,
                 "name": labels[code],
+                "language_tag": language_tags[code],
                 "url": url,
                 "active": code == current,
             }

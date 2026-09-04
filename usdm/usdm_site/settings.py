@@ -53,8 +53,8 @@ DATABASES = {
 }
 
 LANGUAGE_CODE = "uk"
-LANGUAGES = [("uk", "Українська"), ("de", "Deutsch")]
-SITE_LANGUAGES = ("uk", "de")
+LANGUAGES = [("uk", "Українська"), ("de", "Deutsch"), ("fr", "Français")]
+SITE_LANGUAGES = ("uk", "de", "fr")
 SITE_LANGUAGE_COOKIE_NAME = "usdm_language"
 SITE_LANGUAGE_COOKIE_MAX_AGE = 365 * 24 * 60 * 60
 SITE_PUBLIC_URL = "https://usdm.com.ua"

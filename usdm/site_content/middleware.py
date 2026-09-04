@@ -53,7 +53,10 @@ class SiteLanguageMiddleware:
                 or first_segment in COOKIE_PAGE_SEGMENTS
                 or not first_segment
             ):
-                response["Content-Language"] = "de-DE" if language == "de" else "uk-UA"
+                response["Content-Language"] = {
+                    "de": "de-DE",
+                    "fr": "fr-FR",
+                }.get(language, "uk-UA")
             if first_segment in settings.SITE_LANGUAGES:
                 response.set_cookie(
                     settings.SITE_LANGUAGE_COOKIE_NAME,

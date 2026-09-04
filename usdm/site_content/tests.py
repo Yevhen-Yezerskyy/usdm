@@ -135,8 +135,28 @@ class LanguageRoutingTests(TestCase):
         self.assertContains(response, "Unsere realisierten Projekte ansehen")
         self.assertContains(response, "Bausätze für den Holzrahmen-Panelbau")
 
-    def test_unknown_language_is_not_a_page(self):
-        self.assertEqual(self.client.get("/fr/").status_code, 404)
+    def test_french_language_is_available_and_translated(self):
+        response = self.client.get("/fr/")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Language"], "fr-FR")
+        self.assertContains(response, "FABRICATION DE MAISONS")
+        self.assertContains(response, 'data-language-switch="uk"')
+        self.assertContains(response, 'data-language-switch="de"')
+        self.assertContains(response, "Paramètres de confidentialité")
+        self.assertContains(response, "Mentions légales")
+        self.assertContains(response, "MAISONS EN PANNEAUX DE BOIS")
+
+        houses = self.client.get("/fr/houses/")
+        self.assertContains(houses, "Maisons préfabriquées")
+        contact = self.client.get("/fr/contact/")
+        self.assertContains(contact, "Votre prénom *")
+        legal = self.client.get("/fr/impressum/")
+        self.assertContains(legal, "NOM COMPLET")
+        self.assertContains(
+            legal,
+            "TOV « USDM » (société ukrainienne à responsabilité limitée)",
+        )
+        self.assertContains(legal, "CODE EDRPOU")
 
     def test_internal_pages_use_their_real_templates_and_heading_style(self):
         expected = {
@@ -408,7 +428,7 @@ class LanguageRoutingTests(TestCase):
         self.assertNotContains(response, "data-consent-gtm")
 
     def test_public_pages_have_one_h1_and_complete_seo_metadata(self):
-        for language in ("uk", "de"):
+        for language in ("uk", "de", "fr"):
             for page_name in PUBLIC_PAGE_NAMES:
                 with self.subTest(language=language, page=page_name):
                     path = "/{}/{}".format(language, "" if page_name == "home" else f"{page_name}/")
@@ -442,10 +462,12 @@ class LanguageRoutingTests(TestCase):
         sitemap = self.client.get("/sitemap.xml")
         self.assertEqual(sitemap.status_code, 200)
         self.assertEqual(sitemap["Content-Type"], "application/xml; charset=utf-8")
-        self.assertEqual(sitemap.content.count(b"<url>"), 14)
-        self.assertEqual(sitemap.content.count(b"<xhtml:link"), 42)
+        self.assertEqual(sitemap.content.count(b"<url>"), 21)
+        self.assertEqual(sitemap.content.count(b"<xhtml:link"), 84)
         self.assertContains(sitemap, 'hreflang="uk-UA"')
+        self.assertContains(sitemap, 'hreflang="fr-FR"')
         self.assertContains(sitemap, 'hreflang="x-default"')
         self.assertNotContains(sitemap, "<lastmod>")
         self.assertContains(sitemap, "https://usdm.com.ua/de/technology/")
+        self.assertContains(sitemap, "https://usdm.com.ua/fr/technology/")
         self.assertNotContains(sitemap, "/de/technologie/")
