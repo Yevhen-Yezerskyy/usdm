@@ -44,6 +44,14 @@
     requestParallax();
   }
 
+  const siteFooter = document.querySelector(".site-footer");
+  if (siteFooter && "IntersectionObserver" in window) {
+    const footerObserver = new IntersectionObserver(([entry]) => {
+      document.body.classList.toggle("footer-in-view", entry.isIntersecting);
+    });
+    footerObserver.observe(siteFooter);
+  }
+
   const mobileNavigation = document.querySelector(".mobile-navigation");
   if (mobileNavigation) {
     const summary = mobileNavigation.querySelector("summary");
