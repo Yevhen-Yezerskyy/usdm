@@ -1545,7 +1545,8 @@ body.has-open-lightbox {
 
 .footer-main__inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   width: 1248px;
   max-width: 100%;
   margin: 0 auto;
@@ -1563,16 +1564,10 @@ body.has-open-lightbox {
 }
 
 .footer-tagline {
-  display: flow-root;
-  height: 68.8125px;
-  margin-top: 10px;
+  margin: 18px 0 0;
   color: #d4d4d4;
   font-size: 18.5px;
   line-height: 31.82px;
-}
-
-.footer-tagline p {
-  margin: 18.5px 0;
 }
 
 .footer-contact-list {
@@ -1630,21 +1625,17 @@ body.has-open-lightbox {
 .footer-contact-icon--phone::before { content: "\f879"; }
 .footer-contact-icon--mail::before { content: "\f2b6"; }
 
-.footer-contact-list--primary {
-  height: 63.640625px;
-}
-
 .footer-socials {
   display: flex;
-  height: 33px;
-  gap: 15.28125px;
-  margin: 40px 0 0 10px;
+  flex-wrap: wrap;
+  gap: 6px 15px;
+  margin: 16px 0 0 6px;
 }
 
 .footer-socials a {
-  display: block;
-  height: 16px;
-  margin: 3px 0 14px;
+  display: flex;
+  min-height: 28px;
+  align-items: center;
   color: #d4d4d4;
   font-family: "USDM Icons";
   font-size: 16px;

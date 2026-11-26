@@ -4,14 +4,22 @@
 <footer class="site-footer">
   <section class="footer-main">
     <div class="footer-main__inner">
-      <div class="footer-column footer-column--primary">
+      <div class="footer-column footer-column--brand">
         <img class="footer-logo" src="{% static 'img/usdm-footer-logo.gif' %}" width="400" height="100" alt="USDM">
 
-        <div class="footer-tagline">
-          <p>{% translate "КАРКАСНО-ПАНЕЛЬНІ БУДИНКИ" %}</p>
-        </div>
+        <p class="footer-tagline">{% translate "КАРКАСНО-ПАНЕЛЬНІ БУДИНКИ" %}</p>
+      </div>
 
-        <ul class="footer-contact-list footer-contact-list--primary">
+      <nav class="footer-navigation footer-column" aria-label="{% translate 'Меню' %}">
+        <a href="{% url 'home' current_language %}"{% if page_name == 'home' %} aria-current="page"{% endif %}>{% translate "Home" %}</a>
+        <a href="{% url 'technology' current_language %}"{% if page_name == 'technology' %} aria-current="page"{% endif %}>{% translate "Технології" %}</a>
+        <a href="{% url 'houses' current_language %}"{% if page_name == 'houses' %} aria-current="page"{% endif %}>{% translate "Будинки" %}</a>
+        <a href="{% url 'experience' current_language %}"{% if page_name == 'experience' %} aria-current="page"{% endif %}>{% translate "Досвід" %}</a>
+        <a href="{% url 'contact' current_language %}"{% if page_name == 'contact' %} aria-current="page"{% endif %}>{% translate "Контакт" %}</a>
+      </nav>
+
+      <div class="footer-column footer-column--contacts">
+        <ul class="footer-contact-list">
           <li><span class="footer-contact-icon footer-contact-icon--phone" aria-hidden="true"></span><a href="tel:+380974101430">+380 97 410 14 30</a></li>
           <li><span class="footer-contact-icon footer-contact-icon--mail" aria-hidden="true"></span><a href="mailto:info@usdm.com.ua">info@usdm.com.ua</a></li>
         </ul>
@@ -23,14 +31,6 @@
           <a class="icon icon--mail" href="mailto:info@usdm.com.ua" aria-label="Email"></a>
         </nav>
       </div>
-
-      <nav class="footer-navigation footer-column" aria-label="{% translate 'Меню' %}">
-        <a href="{% url 'home' current_language %}"{% if page_name == 'home' %} aria-current="page"{% endif %}>{% translate "Home" %}</a>
-        <a href="{% url 'technology' current_language %}"{% if page_name == 'technology' %} aria-current="page"{% endif %}>{% translate "Технології" %}</a>
-        <a href="{% url 'houses' current_language %}"{% if page_name == 'houses' %} aria-current="page"{% endif %}>{% translate "Будинки" %}</a>
-        <a href="{% url 'experience' current_language %}"{% if page_name == 'experience' %} aria-current="page"{% endif %}>{% translate "Досвід" %}</a>
-        <a href="{% url 'contact' current_language %}"{% if page_name == 'contact' %} aria-current="page"{% endif %}>{% translate "Контакт" %}</a>
-      </nav>
     </div>
   </section>
 
