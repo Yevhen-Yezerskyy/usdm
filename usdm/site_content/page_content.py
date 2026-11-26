@@ -990,40 +990,6 @@ CONTACT_CONTENT = {
     ],
     'form_heading': _('відправити запит'),
     'form_intro': _('Відправьте нам запит, та ми з Вами зв’яжемося та відповімо на всі питання.'),
-    'representatives': [
-        {
-            'heading': _('Представник у Німеччині'),
-            'lines': [
-                _('Nowedel GmbH / Kampener Stieg 12, / 22117 Hamburg'),
-                _('+49 1512 7606097'),
-                _('haus@nowedel.de')
-            ]
-        },
-        {
-            'heading': _('Представник у Швеції'),
-            'lines': [
-                _('Harmony Villa Sweden AB / DALVÄGEN 7, / Ort 647 92 Mariefred,'),
-                _('+46 72 838 80 46'),
-                _('alexander@harmonivilla.se')
-            ]
-        },
-        {
-            'heading': _('Представник в Ісландії'),
-            'lines': [
-                _('Gluggarerðin ehf. / Smidjuvegi 12, red street / 200 Kopavogur'),
-                _('+35 566 6630'),
-                _('gluggagerdin@gluggagerdin.is')
-            ]
-        },
-        {
-            'heading': _('Представник у Франції'),
-            'lines': [
-                _('Modul’art Wood. / Za Patureau de la Grange, / 41200 Pruniers-en-Sologne, France'),
-                _('+33 0781 416 099'),
-                _('info@modul-art-wood.fr')
-            ]
-        }
-    ],
     'footer_title': _('каркасно-панельні будинки'),
     'footer_subtitle': _('виробництво каркасно-панельних будівельних конструкцій / доставка та монтаж по Україні та до Європи')
 }
@@ -1337,19 +1303,6 @@ CONTACT_CONTENT["company_contacts"] = [
     {"label": CONTACT_CONTENT["company_lines"][2], "href": "mailto:info@usdm.com.ua"},
 ]
 
-_REPRESENTATIVE_LINKS = [
-    ("", "tel:+4915127606097", "mailto:haus@nowedel.de"),
-    ("", "tel:+46728388046", "mailto:alexander@harmonivilla.se"),
-    ("", "tel:+355666630", "mailto:gluggagerdin@gluggagerdin.is"),
-    ("", "tel:+330781416099", "mailto:info@modul-art-wood.fr"),
-]
-
-for _representative, _links in zip(CONTACT_CONTENT["representatives"], _REPRESENTATIVE_LINKS):
-    _representative["contacts"] = [
-        {"label": label, "href": href}
-        for label, href in zip(_representative["lines"], _links)
-    ]
-
 _HOUSE_BODY_EMPHASIS = [
     {"bold": (0, 2, 4, 5, 8), "italic": (6, 7)},
     {"bold": (0, 2, 4, 5, 9), "italic": (6, 7, 8)},
@@ -1416,13 +1369,3 @@ for _project, _split, _prices in zip(
         _block["column"] = "left" if _index < _split else "right"
         if _index in _prices:
             _block["price_amount"] = _prices[_index]
-
-_CONTACT_COMPANY_PREFIXES = [
-    _('Nowedel GmbH'),
-    _('Harmony Villa Sweden AB'),
-    _('Gluggarerðin ehf.'),
-    _('Modul’art Wood.'),
-]
-
-for _representative, _prefix in zip(CONTACT_CONTENT["representatives"], _CONTACT_COMPANY_PREFIXES):
-    _representative["contacts"][0]["bold_prefix"] = _prefix

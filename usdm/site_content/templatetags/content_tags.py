@@ -34,20 +34,3 @@ def banner_lines(value):
         "{}",
         ((line,) for line in str(value).split(" / ")),
     )
-
-
-@register.filter
-def contact_address(value, bold_prefix=""):
-    lines = str(value).split(" / ")
-    prefix = str(bold_prefix)
-    if prefix and lines[0].startswith(prefix):
-        lines[0] = format_html(
-            "<strong>{}</strong>{}",
-            prefix,
-            lines[0][len(prefix):],
-        )
-    return format_html_join(
-        format_html("<br>"),
-        "{}",
-        ((line,) for line in lines),
-    )

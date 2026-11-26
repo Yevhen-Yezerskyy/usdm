@@ -85,18 +85,32 @@ class LanguageRoutingTests(TestCase):
         self.assertContains(response, ">Технології</a>")
         self.assertContains(response, ">Контакт</a>")
 
-    def test_footer_contains_all_representatives(self):
-        response = self.client.get("/uk/")
-        self.assertContains(response, "Представник у Німеччині")
-        self.assertContains(response, "Представник у Швеції")
-        self.assertContains(response, "Представник в Ісландії")
-        self.assertContains(response, "Представник у Франції")
-        self.assertContains(response, 'href="/uk/impressum/"')
+    def test_footer_links_to_main_pages_in_all_languages(self):
+        expected_labels = {
+            "uk": ("Технології", "Контакт"),
+            "de": ("Technologie", "Kontakt"),
+            "fr": ("Technologies", "Contact"),
+        }
+        for language, (technology_label, contact_label) in expected_labels.items():
+            with self.subTest(language=language):
+                response = self.client.get(f"/{language}/contact/")
+                self.assertContains(response, 'class="footer-navigation footer-column"')
+                _, _, footer = response.content.decode().partition('<nav class="footer-navigation')
+                footer_menu, _, _ = footer.partition("</nav>")
+                for page_path in ("", "technology/", "houses/", "experience/", "contact/"):
+                    self.assertIn(f'href="/{language}/{page_path}"', footer_menu)
+                self.assertIn(f">{technology_label}</a>", footer_menu)
+                self.assertIn(
+                    f'href="/{language}/contact/" aria-current="page">{contact_label}</a>',
+                    footer_menu,
+                )
+                self.assertContains(response, f'href="/{language}/impressum/"')
+                self.assertNotContains(response, 'class="representatives-section"')
+                self.assertNotContains(response, "footer-column--representatives")
 
     def test_footer_is_translated_to_german(self):
         response = self.client.get("/de/")
         self.assertContains(response, "HOLZRAHMEN-PANELHÄUSER")
-        self.assertContains(response, "Vertretung in Deutschland")
         self.assertContains(response, "Modulare Holzrahmen-Panelhäuser")
 
     def test_home_contains_reusable_intro_sections(self):
